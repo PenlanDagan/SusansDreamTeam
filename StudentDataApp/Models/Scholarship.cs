@@ -10,7 +10,6 @@ namespace StudentDataApp.Models
     {
         [Required(ErrorMessage = "Student ID is required")]
         [Display(Name = "Student ID")]
-        [MaxLength(8)]
         [Key]
         public int StudentId { get; set; }
 
