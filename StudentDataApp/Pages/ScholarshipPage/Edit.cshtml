@@ -1,0 +1,50 @@
+﻿@page
+@model StudentDataApp.Pages.ScholarshipPage.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Scholarship</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Scholarship.StudentId" />
+            <div class="form-group">
+                <label asp-for="Scholarship.ScholarshipAmount" class="control-label"></label>
+                <input asp-for="Scholarship.ScholarshipAmount" class="form-control" />
+                <span asp-validation-for="Scholarship.ScholarshipAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Scholarship.DateOffered" class="control-label"></label>
+                <input asp-for="Scholarship.DateOffered" class="form-control" />
+                <span asp-validation-for="Scholarship.DateOffered" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Scholarship.DateAwarded" class="control-label"></label>
+                <input asp-for="Scholarship.DateAwarded" class="form-control" />
+                <span asp-validation-for="Scholarship.DateAwarded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Scholarship.DateAccepted" class="control-label"></label>
+                <input asp-for="Scholarship.DateAccepted" class="form-control" />
+                <span asp-validation-for="Scholarship.DateAccepted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
