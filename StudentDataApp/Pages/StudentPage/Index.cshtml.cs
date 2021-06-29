@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.ContactInfoPage
+namespace StudentDataApp.Pages.StudentPage
 {
     public class IndexModel : PageModel
     {
@@ -19,11 +19,11 @@ namespace StudentDataApp.Pages.ContactInfoPage
             _context = context;
         }
 
-        public IList<ContactInfo> ContactInfo { get;set; }
+        public IList<Student> Student { get;set; }
 
         public async Task OnGetAsync()
         {
-            ContactInfo = await _context.ContactInfo.ToListAsync();
+            Student = await _context.Student.ToListAsync();
         }
     }
 }

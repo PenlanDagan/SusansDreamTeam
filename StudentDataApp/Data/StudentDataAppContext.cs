@@ -14,8 +14,8 @@ namespace StudentDataApp.Data
         {
         }
 
-        public DbSet<StudentDataApp.Models.ContactInfo> ContactInfo { get; set; }
-
-        public DbSet<StudentDataApp.Models.Scholarship> Scholarship { get; set; }
+        public DbSet<ContactInfo> ContactInfo { get; set; }
+        public DbSet<Scholarship> Scholarship { get; set; }
+        public DbSet<Student> Student { get; set; }
     }
 }

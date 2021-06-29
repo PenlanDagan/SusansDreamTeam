@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.ScholarshipPage
+namespace StudentDataApp.Pages.StudentPage
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
         }
 
         [BindProperty]
-        public Scholarship Scholarship { get; set; }
+        public Student Student { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +29,9 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 return NotFound();
             }
 
-            Scholarship = await _context.Scholarship.FirstOrDefaultAsync(m => m.ID == id);
+            Student = await _context.Student.FirstOrDefaultAsync(m => m.StudentID == id);
 
-            if (Scholarship == null)
+            if (Student == null)
             {
                 return NotFound();
             }
@@ -45,11 +45,11 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 return NotFound();
             }
 
-            Scholarship = await _context.Scholarship.FindAsync(id);
+            Student = await _context.Student.FindAsync(id);
 
-            if (Scholarship != null)
+            if (Student != null)
             {
-                _context.Scholarship.Remove(Scholarship);
+                _context.Student.Remove(Student);
                 await _context.SaveChangesAsync();
             }
 

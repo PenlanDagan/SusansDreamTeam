@@ -8,10 +8,10 @@ namespace StudentDataApp.Models
 {
     public class Scholarship
     {
-        [Required(ErrorMessage = "Student ID is required")]
-        [Display(Name = "Student ID")]
         [Key]
-        public int StudentId { get; set; }
+        public int ID { get; set; }
+
+        public int StudentID { get; set; }
 
         [Required(ErrorMessage = "Scholarship amount is required")]
         [Display(Name = "Scholarship Amount")]
@@ -21,16 +21,16 @@ namespace StudentDataApp.Models
         [Display(Name = "Date Offered")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        public DateTime DateOffered { get; set; }
+        public DateTime? DateOffered { get; set; }
 
         [Display(Name = "Date Awarded")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        public DateTime DateAwarded { get; set; }
+        public DateTime? DateAwarded { get; set; }
 
         [Display(Name = "Date Accepted")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        public DateTime DateAccepted { get; set; }
+        public DateTime? DateAccepted { get; set; }
     }
 }
