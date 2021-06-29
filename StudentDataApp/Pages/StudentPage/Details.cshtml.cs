@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.ContactInfoPage
+namespace StudentDataApp.Pages.StudentPage
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
             _context = context;
         }
 
-        public ContactInfo ContactInfo { get; set; }
+        public Student Student { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +28,9 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return NotFound();
             }
 
-            ContactInfo = await _context.ContactInfo.FirstOrDefaultAsync(m => m.ID == id);
+            Student = await _context.Student.FirstOrDefaultAsync(m => m.StudentID == id);
 
-            if (ContactInfo == null)
+            if (Student == null)
             {
                 return NotFound();
             }

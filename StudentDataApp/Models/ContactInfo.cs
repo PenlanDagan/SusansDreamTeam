@@ -8,20 +8,10 @@ namespace StudentDataApp.Models
 {
     public class ContactInfo
     {
-        [Required(ErrorMessage = "Student ID is required")]
-        [Display(Name = "Student ID")]
         [Key]
-        public int StudentId { get; set; }
+        public int ID { get; set; }
 
-        [Required(ErrorMessage = "First name is required")]
-        [Display(Name = "First Name")]
-        [DataType(DataType.Text)]
-        public string FirstName { get; set; }
-
-        [Required(ErrorMessage = "Last name is required")]
-        [Display(Name = "Last Name")]
-        [DataType(DataType.Text)]
-        public string LastName { get; set; }
+        public int StudentID { get; set; }
 
         [Required(ErrorMessage = "Phone number is required")]
         [Display(Name = "Home Phone")]

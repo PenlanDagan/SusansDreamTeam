@@ -30,7 +30,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 return NotFound();
             }
 
-            Scholarship = await _context.Scholarship.FirstOrDefaultAsync(m => m.StudentId == id);
+            Scholarship = await _context.Scholarship.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Scholarship == null)
             {
@@ -39,8 +39,8 @@ namespace StudentDataApp.Pages.ScholarshipPage
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -56,7 +56,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ScholarshipExists(Scholarship.StudentId))
+                if (!ScholarshipExists(Scholarship.ID))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
 
         private bool ScholarshipExists(int id)
         {
-            return _context.Scholarship.Any(e => e.StudentId == id);
+            return _context.Scholarship.Any(e => e.ID == id);
         }
     }
 }

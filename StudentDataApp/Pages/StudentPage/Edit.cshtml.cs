@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.ContactInfoPage
+namespace StudentDataApp.Pages.StudentPage
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
         }
 
         [BindProperty]
-        public ContactInfo ContactInfo { get; set; }
+        public Student Student { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,17 +30,17 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return NotFound();
             }
 
-            ContactInfo = await _context.ContactInfo.FirstOrDefaultAsync(m => m.StudentId == id);
+            Student = await _context.Student.FirstOrDefaultAsync(m => m.StudentID == id);
 
-            if (ContactInfo == null)
+            if (Student == null)
             {
                 return NotFound();
             }
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -48,7 +48,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return Page();
             }
 
-            _context.Attach(ContactInfo).State = EntityState.Modified;
+            _context.Attach(Student).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ContactInfoExists(ContactInfo.StudentId))
+                if (!StudentExists(Student.StudentID))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace StudentDataApp.Pages.ContactInfoPage
             return RedirectToPage("./Index");
         }
 
-        private bool ContactInfoExists(int id)
+        private bool StudentExists(int id)
         {
-            return _context.ContactInfo.Any(e => e.StudentId == id);
+            return _context.Student.Any(e => e.StudentID == id);
         }
     }
 }
