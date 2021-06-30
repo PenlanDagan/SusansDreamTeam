@@ -12,6 +12,7 @@ namespace StudentDataApp.Models
         public int ID { get; set; }
 
         public int StudentID { get; set; }
+        public Student Student { get; set; }
 
         [Required(ErrorMessage = "Scholarship amount is required")]
         [Display(Name = "Scholarship Amount")]

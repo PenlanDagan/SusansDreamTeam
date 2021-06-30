@@ -25,5 +25,8 @@ namespace StudentDataApp.Models
         [Display(Name = "Last Name")]
         [DataType(DataType.Text)]
         public string LastName { get; set; }
+
+        public ICollection<ContactInfo> ContactInfos { get; set; }
+        public ICollection<Scholarship> Scholarships { get; set; }
     }
 }
