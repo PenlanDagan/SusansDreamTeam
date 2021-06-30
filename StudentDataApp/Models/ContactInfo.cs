@@ -12,6 +12,7 @@ namespace StudentDataApp.Models
         public int ID { get; set; }
 
         public int StudentID { get; set; }
+        public Student Student { get; set; }
 
         [Required(ErrorMessage = "Phone number is required")]
         [Display(Name = "Home Phone")]
