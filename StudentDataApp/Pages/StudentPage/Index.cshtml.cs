@@ -22,7 +22,7 @@ namespace StudentDataApp.Pages.StudentPage
             _context = context;
         }
 
-        public IList<Student> Student { get;set; }
+        public IList<Student> Student { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -49,13 +49,16 @@ namespace StudentDataApp.Pages.StudentPage
                 
                 // Skip the first title line
                 await reader.ReadLineAsync();
-                
+
+                Student newStudent = null;
+
                 // Start reading the data lines
                 while (!reader.EndOfStream)
                 {
                     string line = await reader.ReadLineAsync();
                     string[] values = Regex.Split(line, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                    Console.WriteLine(values[0]);
+
+                    //Adding Student
                     if (values[0].Trim().Length != 0)
                     {
                         // 0: Student ID
@@ -63,14 +66,40 @@ namespace StudentDataApp.Pages.StudentPage
                         // 2: First Name
                         // 6: Email
                         // 7: Phone Number
-                        Student newStudent = new Student { StudentSchoolID = int.Parse(values[0].Trim()), LastName = values[1].Trim(), FirstName = values[2].Trim() };
-                        await _context.Student.AddAsync(newStudent);
-                        await _context.SaveChangesAsync();
-                        ContactInfo newContactInfo = new ContactInfo { StudentID = newStudent.StudentID, EmailAddress = values[6], PhoneNumber = values[7] };
-                        await _context.ContactInfo.AddAsync(newContactInfo);
+                        newStudent = new Student { 
+                            StudentSchoolID = int.Parse(values[0].Trim()), 
+                            LastName = values[1].Trim(), 
+                            FirstName = values[2].Trim() 
+                        };
+                        _context.Student.Add(newStudent);
                         await _context.SaveChangesAsync();
                     }
+
+                    // Adding Contact Info
+                    if (newStudent != null)
+                    {
+                        string email = values[6].Trim();
+                        string phoneNumber = values[7].Trim();
+                        if (email.Length != 0 || phoneNumber.Length != 0)
+                        {
+                            ContactInfo newContactInfo = new ContactInfo
+                            {
+                                StudentID = newStudent.StudentID,
+                                EmailAddress = email.Length != 0 ? email : null,
+                                PhoneNumber = phoneNumber.Trim().Length != 0 ? phoneNumber : null
+                            };
+                            _context.ContactInfo.Add(newContactInfo);
+                        }
+                        else if (values[0].Trim().Length == 0)
+                        {
+                            // If there's no Student ID, no email, no phone number,
+                            // assume that the file ended and exit.
+                            break;
+                        }
+                    }
                 }
+
+                await _context.SaveChangesAsync();
                 await OnGetAsync();
             };
         }
