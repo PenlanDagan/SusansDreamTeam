@@ -32,13 +32,21 @@ namespace StudentDataApp.Pages.StudentPage
         [BindProperty]
         public IFormFile UnorganizedStudentData { get; set; }
 
-        public async Task OnPostAsync()
+        public async Task OnPostAsync(int? id)
         {
-            if (UnorganizedStudentData != null)
+            if (id == null)
             {
-                await ProcessUnorganizedData();
+                if (UnorganizedStudentData != null)
+                {
+                    await ProcessUnorganizedData();
+                }
             }
-
+            else
+            {
+                Console.WriteLine("Student Index ID: " + id);
+                Response.Redirect("ContactInfoPage/Details/" + id.ToString(), true);
+                await OnGetAsync();
+            }
         } 
 
         public async Task ProcessUnorganizedData()
@@ -103,5 +111,6 @@ namespace StudentDataApp.Pages.StudentPage
                 await OnGetAsync();
             };
         }
+        
     }
 }
