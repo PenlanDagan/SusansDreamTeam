@@ -43,7 +43,6 @@ namespace StudentDataApp.Pages.StudentPage
             }
             else
             {
-                Console.WriteLine("Student Index ID: " + id);
                 Response.Redirect("ContactInfoPage/Details/" + id.ToString(), true);
                 await OnGetAsync();
             }
