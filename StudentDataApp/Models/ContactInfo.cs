@@ -14,13 +14,11 @@ namespace StudentDataApp.Models
         public int StudentID { get; set; }
         public Student Student { get; set; }
 
-        [Required(ErrorMessage = "Phone number is required")]
         [Display(Name = "Home Phone")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Email Address")]
-        [Required(ErrorMessage = "Email address is required")]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
     }

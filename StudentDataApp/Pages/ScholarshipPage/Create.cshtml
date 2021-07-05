@@ -1,8 +1,9 @@
-﻿@page
+﻿@page "{id:int?}"
 @model StudentDataApp.Pages.ScholarshipPage.CreateModel
 
 @{
     ViewData["Title"] = "Create";
+    ViewData["StudentID"] = Model.StudentID;
 }
 
 <h1>Create</h1>
@@ -13,14 +14,15 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Scholarship.StudentID" value=@Model.StudentID />
             <div class="form-group">
-                <label asp-for="Scholarship.StudentID" class="control-label"></label>
-                <input asp-for="Scholarship.StudentID" class="form-control" />
-                <span asp-validation-for="Scholarship.StudentID" class="text-danger"></span>
+                <label asp-for="Scholarship.ScholarshipName" class="control-label"></label>
+                <input asp-for="Scholarship.ScholarshipName" class="form-control" />
+                <span asp-validation-for="Scholarship.ScholarshipName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Scholarship.ScholarshipAmount" class="control-label"></label>
-                <input asp-for="Scholarship.ScholarshipAmount" class="form-control" />
+                <input asp-for="Scholarship.ScholarshipAmount" value="1200" class="form-control" />
                 <span asp-validation-for="Scholarship.ScholarshipAmount" class="text-danger"></span>
             </div>
             <div class="form-check mb-2">
@@ -67,10 +69,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {

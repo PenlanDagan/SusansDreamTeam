@@ -14,23 +14,27 @@ namespace StudentDataApp.Models
         public int StudentID { get; set; }
         public Student Student { get; set; }
 
+        [Required(ErrorMessage = "Scholarship name is required")]
+        [Display(Name = "Scholarship Name")]
+        public string ScholarshipName { get; set; }
+
         [Required(ErrorMessage = "Scholarship amount is required")]
         [Display(Name = "Scholarship Amount")]
         [DataType(DataType.Currency)]
         public double ScholarshipAmount { get; set; }
 
         [Display(Name = "Date Offered")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true, NullDisplayText = "Not Offered")]
         [DataType(DataType.Date)]
         public DateTime? DateOffered { get; set; }
 
         [Display(Name = "Date Awarded")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true, NullDisplayText = "Not Awarded")]
         [DataType(DataType.Date)]
         public DateTime? DateAwarded { get; set; }
 
         [Display(Name = "Date Accepted")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true, NullDisplayText = "Not Accepted")]
         [DataType(DataType.Date)]
         public DateTime? DateAccepted { get; set; }
     }
