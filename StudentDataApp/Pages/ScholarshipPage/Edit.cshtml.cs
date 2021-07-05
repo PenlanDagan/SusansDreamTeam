@@ -20,17 +20,20 @@ namespace StudentDataApp.Pages.ScholarshipPage
             _context = context;
         }
 
+        public int StudentID { get; set; }
+
         [BindProperty]
         public Scholarship Scholarship { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? studentId, int? itemId)
         {
-            if (id == null)
+            if (studentId == null || itemId == null)
             {
                 return NotFound();
             }
 
-            Scholarship = await _context.Scholarship.FirstOrDefaultAsync(m => m.ID == id);
+            StudentID = (int)studentId;
+            Scholarship = await _context.Scholarship.FirstOrDefaultAsync(m => m.ID == itemId);
 
             if (Scholarship == null)
             {
@@ -66,7 +69,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = Scholarship.StudentID });
         }
 
         private bool ScholarshipExists(int id)

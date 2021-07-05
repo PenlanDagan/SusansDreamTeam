@@ -19,7 +19,9 @@ namespace StudentDataApp.Pages.ScholarshipPage
             _context = context;
         }
 
-        public Scholarship Scholarship { get; set; }
+        public int StudentID { get; set; }
+        public Student Student { get; set; }
+        public List<Scholarship> Scholarships { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,12 +30,10 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 return NotFound();
             }
 
-            Scholarship = await _context.Scholarship.FirstOrDefaultAsync(m => m.ID == id);
+            StudentID = (int)id;
+            Scholarships = await _context.Scholarship.Where(m => m.StudentID == id).ToListAsync();
+            Student = await _context.Student.FirstOrDefaultAsync(s => s.StudentID == id);
 
-            if (Scholarship == null)
-            {
-                return NotFound();
-            }
             return Page();
         }
     }

@@ -19,8 +19,16 @@ namespace StudentDataApp.Pages.ScholarshipPage
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public int StudentID { get; set; }
+
+        public IActionResult OnGet(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            StudentID = (int)id;
+
             return Page();
         }
 
@@ -37,8 +45,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
 
             _context.Scholarship.Add(Scholarship);
             await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = Scholarship.StudentID });
         }
     }
 }

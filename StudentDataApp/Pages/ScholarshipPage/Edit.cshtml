@@ -1,8 +1,9 @@
-﻿@page
+﻿@page "{studentId:int?}/{itemId:int?}"
 @model StudentDataApp.Pages.ScholarshipPage.EditModel
 
 @{
     ViewData["Title"] = "Edit";
+    ViewData["StudentID"] = Model.StudentID;
 }
 
 <h1>Edit</h1>
@@ -14,10 +15,11 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Scholarship.ID" />
+            <input type="hidden" asp-for="Scholarship.StudentID" />
             <div class="form-group">
-                <label asp-for="Scholarship.StudentID" class="control-label"></label>
-                <input asp-for="Scholarship.StudentID" class="form-control" />
-                <span asp-validation-for="Scholarship.StudentID" class="text-danger"></span>
+                <label asp-for="Scholarship.ScholarshipName" class="control-label"></label>
+                <input asp-for="Scholarship.ScholarshipName" class="form-control" />
+                <span asp-validation-for="Scholarship.ScholarshipName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Scholarship.ScholarshipAmount" class="control-label"></label>
