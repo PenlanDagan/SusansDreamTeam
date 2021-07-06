@@ -1,0 +1,54 @@
+﻿@page
+@model StudentDataApp.Pages.Post_RegistrationPage.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Post_Registration</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Post_Registration.ID" class="control-label"></label>
+                <input asp-for="Post_Registration.ID" class="form-control" />
+                <span asp-validation-for="Post_Registration.ID" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Post_Registration.sched_comp" /> @Html.DisplayNameFor(model => model.Post_Registration.sched_comp)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post_Registration.start_date" class="control-label"></label>
+                <input asp-for="Post_Registration.start_date" class="form-control" />
+                <span asp-validation-for="Post_Registration.start_date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post_Registration.grad_date" class="control-label"></label>
+                <input asp-for="Post_Registration.grad_date" class="form-control" />
+                <span asp-validation-for="Post_Registration.grad_date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post_Registration.emphasis" class="control-label"></label>
+                <input asp-for="Post_Registration.emphasis" class="form-control" />
+                <span asp-validation-for="Post_Registration.emphasis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
