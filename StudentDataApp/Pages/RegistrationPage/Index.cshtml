@@ -1,0 +1,66 @@
+﻿@page
+@model StudentDataApp.Pages.RegistrationPage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Registration[0].sign_course)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Registration[0].prior_classes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Registration[0].trans_set)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Registration[0].trans_eval)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Registration[0].enrolled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Registration[0].term_create)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Registration) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.sign_course)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prior_classes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.trans_set)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.trans_eval)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.enrolled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.term_create)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.stu_id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.stu_id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.stu_id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

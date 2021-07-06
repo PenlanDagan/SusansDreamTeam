@@ -1,0 +1,64 @@
+﻿@page
+@model StudentDataApp.Pages.RegistrationPage.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Registration</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Registration.ID" class="control-label"></label>
+                <input asp-for="Registration.ID" class="form-control" />
+                <span asp-validation-for="Registration.ID" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Registration.sign_course" /> @Html.DisplayNameFor(model => model.Registration.sign_course)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Registration.prior_classes" /> @Html.DisplayNameFor(model => model.Registration.prior_classes)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Registration.trans_set" /> @Html.DisplayNameFor(model => model.Registration.trans_set)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Registration.trans_eval" /> @Html.DisplayNameFor(model => model.Registration.trans_eval)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Registration.enrolled" /> @Html.DisplayNameFor(model => model.Registration.enrolled)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Registration.term_create" /> @Html.DisplayNameFor(model => model.Registration.term_create)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

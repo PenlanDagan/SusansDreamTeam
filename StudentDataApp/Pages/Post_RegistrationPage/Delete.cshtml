@@ -1,0 +1,52 @@
+﻿@page
+@model StudentDataApp.Pages.Post_RegistrationPage.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Post_Registration</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Post_Registration.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post_Registration.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Post_Registration.sched_comp)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post_Registration.sched_comp)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Post_Registration.start_date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post_Registration.start_date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Post_Registration.grad_date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post_Registration.grad_date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Post_Registration.emphasis)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post_Registration.emphasis)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Post_Registration.stu_id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
