@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.ScholarshipPage
+namespace StudentDataApp.Pages.StudentPage
 {
     public class CreateModel : PageModel
     {
@@ -19,21 +19,13 @@ namespace StudentDataApp.Pages.ScholarshipPage
             _context = context;
         }
 
-        public int StudentID { get; set; }
-
-        public IActionResult OnGet(int? id)
+        public IActionResult OnGet()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            StudentID = (int)id;
-
             return Page();
         }
 
         [BindProperty]
-        public Scholarship Scholarship { get; set; }
+        public Student Student { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -43,9 +35,10 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 return Page();
             }
 
-            _context.Scholarship.Add(Scholarship);
+            _context.Student.Add(Student);
             await _context.SaveChangesAsync();
-            return RedirectToPage("./Details", new { id = Scholarship.StudentID });
+
+            return RedirectToPage("./Index");
         }
     }
 }

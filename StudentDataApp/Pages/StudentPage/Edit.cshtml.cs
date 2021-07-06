@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.ScholarshipPage
+namespace StudentDataApp.Pages.StudentPage
 {
     public class EditModel : PageModel
     {
@@ -20,22 +20,19 @@ namespace StudentDataApp.Pages.ScholarshipPage
             _context = context;
         }
 
-        public int StudentID { get; set; }
-
         [BindProperty]
-        public Scholarship Scholarship { get; set; }
+        public Student Student { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? studentId, int? itemId)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (studentId == null || itemId == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            StudentID = (int)studentId;
-            Scholarship = await _context.Scholarship.FirstOrDefaultAsync(m => m.ID == itemId);
+            Student = await _context.Student.FirstOrDefaultAsync(m => m.StudentID == id);
 
-            if (Scholarship == null)
+            if (Student == null)
             {
                 return NotFound();
             }
@@ -51,7 +48,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 return Page();
             }
 
-            _context.Attach(Scholarship).State = EntityState.Modified;
+            _context.Attach(Student).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +56,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ScholarshipExists(Scholarship.ID))
+                if (!StudentExists(Student.StudentID))
                 {
                     return NotFound();
                 }
@@ -69,12 +66,12 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 }
             }
 
-            return RedirectToPage("./Details", new { id = Scholarship.StudentID });
+            return RedirectToPage("./Index");
         }
 
-        private bool ScholarshipExists(int id)
+        private bool StudentExists(int id)
         {
-            return _context.Scholarship.Any(e => e.ID == id);
+            return _context.Student.Any(e => e.StudentID == id);
         }
     }
 }
