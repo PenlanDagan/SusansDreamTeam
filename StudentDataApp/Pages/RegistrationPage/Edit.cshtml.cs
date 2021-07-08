@@ -19,18 +19,19 @@ namespace StudentDataApp.Pages.RegistrationPage
         {
             _context = context;
         }
+        public int StudentID { get; set; }
 
         [BindProperty]
         public Registration Registration { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? studentId, int? itemId)
         {
-            if (id == null)
+            if (studentId == null || itemId == null)
             {
                 return NotFound();
             }
 
-            Registration = await _context.Registration.FirstOrDefaultAsync(m => m.stu_id == id);
+            Registration = await _context.Registration.FirstOrDefaultAsync(m => m.ID == itemId);
 
             if (Registration == null)
             {
@@ -56,7 +57,7 @@ namespace StudentDataApp.Pages.RegistrationPage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RegistrationExists(Registration.stu_id))
+                if (!RegistrationExists(Registration.ID))
                 {
                     return NotFound();
                 }
@@ -66,12 +67,12 @@ namespace StudentDataApp.Pages.RegistrationPage
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = Registration.StudentID });
         }
 
         private bool RegistrationExists(int id)
         {
-            return _context.Registration.Any(e => e.stu_id == id);
+            return _context.Registration.Any(e => e.ID == id);
         }
     }
 }
