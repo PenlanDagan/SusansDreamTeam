@@ -29,7 +29,7 @@ namespace StudentDataApp.Pages.Post_RegistrationPage
                 return NotFound();
             }
 
-            Post_Registration = await _context.Post_Registration.FirstOrDefaultAsync(m => m.stu_id == id);
+            Post_Registration = await _context.Post_Registration.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Post_Registration == null)
             {

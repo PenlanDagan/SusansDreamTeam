@@ -19,7 +19,9 @@ namespace StudentDataApp.Pages.Post_RegistrationPage
             _context = context;
         }
 
-        public Post_Registration Post_Registration { get; set; }
+        public int StudentID { get; set; }
+        public Student Student { get; set; }
+        public List<Post_Registration>Post_Registrations { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,12 +30,11 @@ namespace StudentDataApp.Pages.Post_RegistrationPage
                 return NotFound();
             }
 
-            Post_Registration = await _context.Post_Registration.FirstOrDefaultAsync(m => m.stu_id == id);
+            StudentID = (int)id;
+            Post_Registrations = await _context.Post_Registration.Where(m => m.StudentID == id).ToListAsync();
+            Student = await _context.Student.FirstOrDefaultAsync(s => s.StudentID == id);
 
-            if (Post_Registration == null)
-            {
-                return NotFound();
-            }
+
             return Page();
         }
     }

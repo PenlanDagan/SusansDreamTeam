@@ -18,9 +18,16 @@ namespace StudentDataApp.Pages.Post_RegistrationPage
         {
             _context = context;
         }
+        public int StudentID { get; set; }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            StudentID = (int)id;
+
             return Page();
         }
 
@@ -38,7 +45,7 @@ namespace StudentDataApp.Pages.Post_RegistrationPage
             _context.Post_Registration.Add(Post_Registration);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = Post_Registration.StudentID });
         }
     }
 }

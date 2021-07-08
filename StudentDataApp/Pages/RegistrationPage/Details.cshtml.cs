@@ -19,7 +19,9 @@ namespace StudentDataApp.Pages.RegistrationPage
             _context = context;
         }
 
-        public Registration Registration { get; set; }
+        public int StudentID { get; set; }
+        public Student Student { get; set; }
+        public List<Registration> Registrations { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,12 +30,10 @@ namespace StudentDataApp.Pages.RegistrationPage
                 return NotFound();
             }
 
-            Registration = await _context.Registration.FirstOrDefaultAsync(m => m.stu_id == id);
+            StudentID = (int)id;
+            Registrations = await _context.Registration.Where(m => m.StudentID == id).ToListAsync();
+            Student = await _context.Student.FirstOrDefaultAsync(s => s.StudentID == id);
 
-            if (Registration == null)
-            {
-                return NotFound();
-            }
             return Page();
         }
     }
