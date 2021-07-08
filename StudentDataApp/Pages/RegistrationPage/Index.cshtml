@@ -13,23 +13,24 @@
 <table class="table">
     <thead>
         <tr>
+
             <th>
-                @Html.DisplayNameFor(model => model.Registration[0].sign_course)
+                @Html.DisplayNameFor(model => model.Registration[0].signCourse)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Registration[0].prior_classes)
+                @Html.DisplayNameFor(model => model.Registration[0].priorClasses)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Registration[0].trans_set)
+                @Html.DisplayNameFor(model => model.Registration[0].transSet)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Registration[0].trans_eval)
+                @Html.DisplayNameFor(model => model.Registration[0].transEval)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Registration[0].enrolled)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Registration[0].term_create)
+                @Html.DisplayNameFor(model => model.Registration[0].termCreate)
             </th>
             <th></th>
         </tr>
@@ -38,27 +39,27 @@
 @foreach (var item in Model.Registration) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.sign_course)
+                @Html.DisplayFor(modelItem => item.signCourse)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.prior_classes)
+                @Html.DisplayFor(modelItem => item.priorClasses)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.trans_set)
+                @Html.DisplayFor(modelItem => item.transSet)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.trans_eval)
+                @Html.DisplayFor(modelItem => item.transEval)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.enrolled)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.term_create)
+                @Html.DisplayFor(modelItem => item.termCreate)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.stu_id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.stu_id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.stu_id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
 }

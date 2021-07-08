@@ -8,38 +8,37 @@ using System.ComponentModel.DataAnnotations;
 namespace StudentDataApp.Models
 {
     public class Registration
-    {
+    {    
+        [Key]
         public int ID { get; set; }
        
         [Required(ErrorMessage = "Student ID is required")]
         [Display(Name = "Student ID")]
-        [Key]
-        public int stu_id { get; set; }
+    
+        public int StudentID { get; set; }
         
         [Required(ErrorMessage = "Required sign_course")]
         [Display(Name = "Signed for Courses")]
-        public Boolean sign_course { get; set; }
+        public bool signCourse { get; set; }
 
         [Required(ErrorMessage = "Required Prior Classes")]
         [Display(Name = "Prior Classes")]
-        public Boolean prior_classes { get; set; }
+        public bool priorClasses { get; set; }
         
         [Required(ErrorMessage = "Required trans sent status")]
         [Display(Name = "Transcript Sent")]
-        public Boolean trans_set { get; set; }
+        public bool transSet { get; set; }
         
         [Required(ErrorMessage = "Required trans eval status")]
         [Display(Name = "Transcipt Evaluated")]
-        public Boolean trans_eval { get; set; }
+        public bool transEval { get; set; }
         
         [Required(ErrorMessage = "Required enrollment status")]
         [Display(Name = "Enrolled")]
-        public Boolean enrolled { get; set; }
+        public bool enrolled { get; set; }
         
         [Required(ErrorMessage = "Required term creation status")]
         [Display(Name = "Term Status")]
-        public Boolean term_create { get; set; }
-
-
+        public bool termCreate { get; set; }
     }
 }

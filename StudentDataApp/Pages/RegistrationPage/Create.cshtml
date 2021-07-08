@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Create";
+    ViewData["StudentID"] = Model.StudentID;
+
 }
 
 <h1>Create</h1>
@@ -13,29 +15,26 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Registration.ID" class="control-label"></label>
-                <input asp-for="Registration.ID" class="form-control" />
-                <span asp-validation-for="Registration.ID" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Registration.StudentID" value=@Model.StudentID />
+
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Registration.sign_course" /> @Html.DisplayNameFor(model => model.Registration.sign_course)
+                    <input class="form-check-input" asp-for="Registration.signCourse" /> @Html.DisplayNameFor(model => model.Registration.signCourse)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Registration.prior_classes" /> @Html.DisplayNameFor(model => model.Registration.prior_classes)
+                    <input class="form-check-input" asp-for="Registration.priorClasses" /> @Html.DisplayNameFor(model => model.Registration.priorClasses)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Registration.trans_set" /> @Html.DisplayNameFor(model => model.Registration.trans_set)
+                    <input class="form-check-input" asp-for="Registration.transSet" /> @Html.DisplayNameFor(model => model.Registration.transSet)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Registration.trans_eval" /> @Html.DisplayNameFor(model => model.Registration.trans_eval)
+                    <input class="form-check-input" asp-for="Registration.transEval" /> @Html.DisplayNameFor(model => model.Registration.transEval)
                 </label>
             </div>
             <div class="form-group form-check">
@@ -45,7 +44,7 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Registration.term_create" /> @Html.DisplayNameFor(model => model.Registration.term_create)
+                    <input class="form-check-input" asp-for="Registration.termCreate" /> @Html.DisplayNameFor(model => model.Registration.termCreate)
                 </label>
             </div>
             <div class="form-group">

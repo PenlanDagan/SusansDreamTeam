@@ -29,7 +29,7 @@ namespace StudentDataApp.Pages.RegistrationPage
                 return NotFound();
             }
 
-            Registration = await _context.Registration.FirstOrDefaultAsync(m => m.stu_id == id);
+            Registration = await _context.Registration.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Registration == null)
             {

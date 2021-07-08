@@ -9,30 +9,32 @@ namespace StudentDataApp.Models
 {
     public class Post_Registration
     {
-
+        [Key]
         public int ID { get; set; }
 
         [Required(ErrorMessage = "Student ID is required")]
         [Display(Name = "Student ID")]
-        [Key]
-        public int stu_id { get; set; }
+        public int StudentID { get; set; }
 
 
-        [Required(ErrorMessage = "missing schedule completion status")]
+        [Required(ErrorMessage = "Missing schedule completion status")]
         [Display(Name = "Schedule Status")]
-        public Boolean sched_comp { get; set; }
+        public bool schedComp { get; set; }
 
 
         [Required(ErrorMessage = "missing start date")]
         [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
-        public DateTime start_date { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true, NullDisplayText = "Not Entered")]
+
+        public DateTime startDate { get; set; }
 
 
         [Required(ErrorMessage = "require projected graduation date")]
         [Display(Name = "Graduation Date")]
         [DataType(DataType.Date)]
-        public DateTime grad_date { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true, NullDisplayText = "Not Entered")]
+        public DateTime gradDate { get; set; }
 
 
         [Required(ErrorMessage = "require emphasis")]

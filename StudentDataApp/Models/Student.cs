@@ -28,5 +28,7 @@ namespace StudentDataApp.Models
 
         public ICollection<ContactInfo> ContactInfos { get; set; }
         public ICollection<Scholarship> Scholarships { get; set; }
+        public ICollection<Registration> Registrations { get; set; }
+        public ICollection<Post_Registration> Post_Registrations { get; set; }
     }
 }

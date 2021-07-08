@@ -13,14 +13,15 @@
 <table class="table">
     <thead>
         <tr>
+
             <th>
-                @Html.DisplayNameFor(model => model.Post_Registration[0].sched_comp)
+                @Html.DisplayNameFor(model => model.Post_Registration[0].schedComp)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Post_Registration[0].start_date)
+                @Html.DisplayNameFor(model => model.Post_Registration[0].startDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Post_Registration[0].grad_date)
+                @Html.DisplayNameFor(model => model.Post_Registration[0].gradDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Post_Registration[0].emphasis)
@@ -32,21 +33,21 @@
 @foreach (var item in Model.Post_Registration) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.sched_comp)
+                @Html.DisplayFor(modelItem => item.schedComp)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.start_date)
+                @Html.DisplayFor(modelItem => item.startDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.grad_date)
+                @Html.DisplayFor(modelItem => item.gradDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.emphasis)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.stu_id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.stu_id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.stu_id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
 }
