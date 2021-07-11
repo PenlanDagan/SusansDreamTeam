@@ -36,17 +36,18 @@
                     @Html.DisplayFor(modelItem => item.DateOffered)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => item.DateAwarded)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.DateAwarded)
-                </dd>
-                <dt class="col-sm-2">
                     @Html.DisplayNameFor(modelItem => item.DateAccepted)
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(modelItem => item.DateAccepted)
                 </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.DateAwarded)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.DateAwarded)
+                </dd>
+
                 <dt class="col-sm-2">
                     <a asp-page="./Edit" asp-route-studentId="@Model.StudentID" asp-route-itemId="@item.ID">Edit</a>
                 </dt>
