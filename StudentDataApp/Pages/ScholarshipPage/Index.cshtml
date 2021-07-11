@@ -14,6 +14,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Scholarship[0].StudentID)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Scholarship[0].ScholarshipAmount)
             </th>
             <th>
@@ -32,6 +35,9 @@
 @foreach (var item in Model.Scholarship) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.StudentID)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ScholarshipAmount)
             </td>
             <td>
@@ -44,9 +50,9 @@
                 @Html.DisplayFor(modelItem => item.DateAccepted)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.StudentId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.StudentId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.StudentId">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
 }

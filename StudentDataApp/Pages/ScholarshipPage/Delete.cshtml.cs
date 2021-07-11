@@ -29,7 +29,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 return NotFound();
             }
 
-            Scholarship = await _context.Scholarship.FirstOrDefaultAsync(m => m.StudentId == id);
+            Scholarship = await _context.Scholarship.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Scholarship == null)
             {

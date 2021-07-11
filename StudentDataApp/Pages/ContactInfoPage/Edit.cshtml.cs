@@ -30,7 +30,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return NotFound();
             }
 
-            ContactInfo = await _context.ContactInfo.FirstOrDefaultAsync(m => m.StudentId == id);
+            ContactInfo = await _context.ContactInfo.FirstOrDefaultAsync(m => m.ID == id);
 
             if (ContactInfo == null)
             {
@@ -39,8 +39,8 @@ namespace StudentDataApp.Pages.ContactInfoPage
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -56,7 +56,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ContactInfoExists(ContactInfo.StudentId))
+                if (!ContactInfoExists(ContactInfo.ID))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
 
         private bool ContactInfoExists(int id)
         {
-            return _context.ContactInfo.Any(e => e.StudentId == id);
+            return _context.ContactInfo.Any(e => e.ID == id);
         }
     }
 }

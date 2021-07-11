@@ -19,16 +19,23 @@ namespace StudentDataApp.Pages.ScholarshipPage
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public int StudentID { get; set; }
+
+        public IActionResult OnGet(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            StudentID = (int)id;
+
             return Page();
         }
 
         [BindProperty]
         public Scholarship Scholarship { get; set; }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
+        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -38,8 +45,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
 
             _context.Scholarship.Add(Scholarship);
             await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = Scholarship.StudentID });
         }
     }
 }

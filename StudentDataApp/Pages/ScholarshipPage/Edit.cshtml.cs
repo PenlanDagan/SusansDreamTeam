@@ -20,17 +20,20 @@ namespace StudentDataApp.Pages.ScholarshipPage
             _context = context;
         }
 
+        public int StudentID { get; set; }
+
         [BindProperty]
         public Scholarship Scholarship { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? studentId, int? itemId)
         {
-            if (id == null)
+            if (studentId == null || itemId == null)
             {
                 return NotFound();
             }
 
-            Scholarship = await _context.Scholarship.FirstOrDefaultAsync(m => m.StudentId == id);
+            StudentID = (int)studentId;
+            Scholarship = await _context.Scholarship.FirstOrDefaultAsync(m => m.ID == itemId);
 
             if (Scholarship == null)
             {
@@ -39,8 +42,8 @@ namespace StudentDataApp.Pages.ScholarshipPage
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -56,7 +59,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ScholarshipExists(Scholarship.StudentId))
+                if (!ScholarshipExists(Scholarship.ID))
                 {
                     return NotFound();
                 }
@@ -66,12 +69,12 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = Scholarship.StudentID });
         }
 
         private bool ScholarshipExists(int id)
         {
-            return _context.Scholarship.Any(e => e.StudentId == id);
+            return _context.Scholarship.Any(e => e.ID == id);
         }
     }
 }

@@ -1,0 +1,53 @@
+﻿@page "{id:int?}"
+@model StudentDataApp.Pages.Post_RegistrationPage.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    ViewData["StudentID"] = Model.StudentID;
+
+}
+
+<h1>Create</h1>
+
+<h4>Post_Registration</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Post_Registration.StudentID" value=@Model.StudentID />
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Post_Registration.schedComp" /> @Html.DisplayNameFor(model => model.Post_Registration.schedComp)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post_Registration.startDate" class="control-label"></label>
+                <input asp-for="Post_Registration.startDate" class="form-control" />
+                <span asp-validation-for="Post_Registration.startDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post_Registration.gradDate" class="control-label"></label>
+                <input asp-for="Post_Registration.gradDate" class="form-control" />
+                <span asp-validation-for="Post_Registration.gradDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Post_Registration.emphasis" class="control-label"></label>
+                <input asp-for="Post_Registration.emphasis" class="form-control" />
+                <span asp-validation-for="Post_Registration.emphasis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

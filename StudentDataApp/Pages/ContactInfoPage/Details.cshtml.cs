@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,9 @@ namespace StudentDataApp.Pages.ContactInfoPage
             _context = context;
         }
 
-        public ContactInfo ContactInfo { get; set; }
+        public int StudentID { get; set; }
+        public Student Student { get; set; }
+        public List<ContactInfo> ContactInfos { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,12 +31,9 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return NotFound();
             }
 
-            ContactInfo = await _context.ContactInfo.FirstOrDefaultAsync(m => m.StudentId == id);
-
-            if (ContactInfo == null)
-            {
-                return NotFound();
-            }
+            StudentID = (int)id;
+            ContactInfos = await _context.ContactInfo.Where(m => m.StudentID == id).ToListAsync();
+            Student = await _context.Student.FirstOrDefaultAsync(s => s.StudentID == id);
             return Page();
         }
     }

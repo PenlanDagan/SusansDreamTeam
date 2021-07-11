@@ -1,0 +1,55 @@
+﻿@page
+@model StudentDataApp.Pages.Post_RegistrationPage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Post_Registration[0].schedComp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Post_Registration[0].startDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Post_Registration[0].gradDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Post_Registration[0].emphasis)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Post_Registration) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.schedComp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.startDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gradDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emphasis)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
