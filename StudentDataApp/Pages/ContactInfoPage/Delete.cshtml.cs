@@ -29,7 +29,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return NotFound();
             }
 
-            ContactInfo = await _context.ContactInfo.FirstOrDefaultAsync(m => m.StudentId == id);
+            ContactInfo = await _context.ContactInfo.FirstOrDefaultAsync(m => m.ID == id);
 
             if (ContactInfo == null)
             {

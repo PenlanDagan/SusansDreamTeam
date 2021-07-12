@@ -1,43 +1,66 @@
-﻿@page
+﻿@page "{id:int?}"
 @model StudentDataApp.Pages.ScholarshipPage.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
+    ViewData["StudentID"] = Model.StudentID;
 }
 
-<h1>Details</h1>
+<h1>@Model.Student.LastName, @Model.Student.FirstName | @Model.Student.StudentSchoolID</h1>
 
 <div>
-    <h4>Scholarship</h4>
+    <h4>Scholarships</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Scholarship.ScholarshipAmount)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Scholarship.ScholarshipAmount)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Scholarship.DateOffered)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Scholarship.DateOffered)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Scholarship.DateAwarded)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Scholarship.DateAwarded)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Scholarship.DateAccepted)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Scholarship.DateAccepted)
-        </dd>
-    </dl>
+
+    @if (Model.Scholarships.Count != 0)
+    {
+        foreach (var item in Model.Scholarships)
+        {
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.ScholarshipName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.ScholarshipName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.ScholarshipAmount)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.ScholarshipAmount)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.DateOffered)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.DateOffered)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.DateAwarded)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.DateAwarded)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.DateAccepted)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.DateAccepted)
+                </dd>
+                <dt class="col-sm-2">
+                    <a asp-page="./Edit" asp-route-studentId="@Model.StudentID" asp-route-itemId="@item.ID">Edit</a>
+                </dt>
+            </dl>
+        }
+    } 
+    else
+    {
+        <p>There is no scholarship for this student. <a asp-page="Create" asp-route-id=@Model.StudentID>Create a scholarship item</a></p>
+    }
 </div>
+@if (Model.Scholarships.Count != 0)
+{
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Scholarship.StudentId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="Create" asp-route-id=@Model.StudentID>Create another scholarship item</a>
 </div>
+}
