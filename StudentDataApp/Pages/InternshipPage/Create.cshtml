@@ -1,0 +1,46 @@
+﻿@page "{id:int?}"
+@model StudentDataApp.Pages.InternshipPage.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    ViewData["StudentID"] = Model.StudentID;
+}
+
+<h1>Create</h1>
+
+<h4>Internship</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Internship.StudentID" value=@Model.StudentID />
+            <div class="form-group">
+                <label asp-for="Internship.IntCompName" class="control-label"></label>
+                <input asp-for="Internship.IntCompName" class="form-control" />
+                <span asp-validation-for="Internship.IntCompName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Internship.IntCompLocation" class="control-label"></label>
+                <input asp-for="Internship.IntCompLocation" class="form-control" />
+                <span asp-validation-for="Internship.IntCompLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Internship.IntWage" class="control-label"></label>
+                <input asp-for="Internship.IntWage" class="form-control" />
+                <span asp-validation-for="Internship.IntWage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
