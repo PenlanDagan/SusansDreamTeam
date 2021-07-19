@@ -46,6 +46,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
             }
 
             ContactInfo = await _context.ContactInfo.FindAsync(id);
+            int studentId = ContactInfo.StudentID;
 
             if (ContactInfo != null)
             {
@@ -53,7 +54,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { studentId });
         }
     }
 }
