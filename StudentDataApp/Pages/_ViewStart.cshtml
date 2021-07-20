@@ -1,7 +1,7 @@
 ﻿@{
     var routeUrl = ViewContext.RouteData.Values["Page"].ToString();
     //you can put pages' name into pages
-    var pages = new List<string> { "ContactInfoPage", "ScholarshipPage", "RegistrationPage", "Post_RegistrationPage", "InternshipPage", "EmploymentPage" };
+    var pages = new List<string> { "ContactInfoPage", "ScholarshipPage", "RegistrationPage", "Post_RegistrationPage", "InternshipPage", "PostGradPage" };
     //if routeUrl contains any of pages,the page will use _StudentLayout as Layout page,the other pages will use _Layout as Layout page
     if (pages.Any(routeUrl.Contains))
     {

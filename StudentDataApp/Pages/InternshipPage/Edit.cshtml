@@ -1,9 +1,9 @@
-﻿@page "{studentId:int?}/{itemId:int?}"
+﻿@page "{id:int?}"
 @model StudentDataApp.Pages.InternshipPage.EditModel
 
 @{
     ViewData["Title"] = "Edit";
-    ViewData["StudentID"] = Model.StudentID;
+    ViewData["StudentID"] = Model.Internship.StudentID;
 }
 
 <h1>Edit</h1>

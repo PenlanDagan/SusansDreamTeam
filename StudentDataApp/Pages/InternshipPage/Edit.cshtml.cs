@@ -23,17 +23,16 @@ namespace StudentDataApp.Pages.InternshipPage
         [BindProperty]
         public Internship Internship { get; set; }
 
-        public int StudentID { get; set; }
         public Student Student { get; set; }
-        public async Task<IActionResult> OnGetAsync(int? studentId, int? itemId)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (studentId == null || itemId == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            StudentID = (int)studentId;
-            Internship = await _context.Internship.FirstOrDefaultAsync(m => m.ID == itemId);
+           
+            Internship = await _context.Internship.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Internship == null)
             {
@@ -69,7 +68,7 @@ namespace StudentDataApp.Pages.InternshipPage
                 }
             }
 
-            return RedirectToPage("./Details", new { id = Internship.StudentID });
+            return RedirectToPage("./Details", new { studentId = Internship.StudentID });
         }
 
         private bool InternshipExists(int id)

@@ -20,6 +20,9 @@
                 @Html.DisplayNameFor(model => model.Employment[0].GradCode)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Employment[0].GradTerm)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Employment[0].CompName)
             </th>
             <th>
@@ -39,6 +42,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GradCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GradTerm)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CompName)

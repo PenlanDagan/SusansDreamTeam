@@ -24,15 +24,15 @@ namespace StudentDataApp.Pages.InternshipPage
 
         public List<Internship> Internships { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? studentId)
         {
-            if (id == null)
+            if (studentId == null)
             {
                 return NotFound();
             }
-            StudentID = (int)id;
-            Internships = await _context.Internship.Where(m => m.StudentID == id).ToListAsync();
-            Student = await _context.Student.FirstOrDefaultAsync(s => s.StudentID == id);
+            StudentID = (int)studentId;
+            Internships = await _context.Internship.Where(m => m.StudentID == studentId).ToListAsync();
+            Student = await _context.Student.FirstOrDefaultAsync(s => s.StudentID == studentId);
 
 
             return Page();

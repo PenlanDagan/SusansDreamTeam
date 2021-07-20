@@ -21,20 +21,20 @@ namespace StudentDataApp.Pages.EmploymentPage
         }
 
         [BindProperty]
-        public Employment Employment { get; set; }
-        public int StudentID { get; set; }
+        public PostGrad Employment { get; set; }
         public Student Student { get; set; }
+        public readonly List<SelectListItem> GradCodes = PostGradCodeSelectList.getItems();
 
 
-        public async Task<IActionResult> OnGetAsync(int? studentId, int? itemId)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (studentId == null || itemId == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            StudentID = (int)studentId;
-            Employment = await _context.Employment.FirstOrDefaultAsync(m => m.ID == itemId);
+ 
+            Employment = await _context.Employment.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Employment == null)
             {
@@ -70,7 +70,7 @@ namespace StudentDataApp.Pages.EmploymentPage
                 }
             }
 
-            return RedirectToPage("./Details", new { id = Employment.StudentID });
+            return RedirectToPage("./Details", new { studentId = Employment.StudentID });
         }
 
         private bool EmploymentExists(int id)

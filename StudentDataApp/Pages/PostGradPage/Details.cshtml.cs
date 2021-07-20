@@ -21,17 +21,17 @@ namespace StudentDataApp.Pages.EmploymentPage
         public int StudentID { get; set; }
         public Student Student { get; set; }
 
-        public List<Employment> Employments { get; set; }
+        public List<PostGrad> Employments { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? studentId)
         {
-            if (id == null)
+            if (studentId == null)
             {
                 return NotFound();
             }
-            StudentID = (int)id;
-            Employments = await _context.Employment.Where(m => m.StudentID == id).ToListAsync();
-            Student = await _context.Student.FirstOrDefaultAsync(s => s.StudentID == id);
+            StudentID = (int)studentId;
+            Employments = await _context.Employment.Where(m => m.StudentID == studentId).ToListAsync();
+            Student = await _context.Student.FirstOrDefaultAsync(s => s.StudentID == studentId);
         
             return Page();
         }
