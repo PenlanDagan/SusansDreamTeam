@@ -22,6 +22,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
 
         [BindProperty]
         public ContactInfo ContactInfo { get; set; }
+        public readonly List<SelectListItem> States = StateSelectList.getItems();
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -66,7 +67,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { studentId = ContactInfo.StudentID });
         }
 
         private bool ContactInfoExists(int id)

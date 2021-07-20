@@ -17,7 +17,7 @@
             <input type="hidden" asp-for="Scholarship.StudentID" value=@Model.StudentID />
             <div class="form-group">
                 <label asp-for="Scholarship.ScholarshipName" class="control-label"></label>
-                <input asp-for="Scholarship.ScholarshipName" class="form-control" />
+                <input asp-for="Scholarship.ScholarshipName" value="Club" class="form-control" />
                 <span asp-validation-for="Scholarship.ScholarshipName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -26,7 +26,7 @@
                 <span asp-validation-for="Scholarship.ScholarshipAmount" class="text-danger"></span>
             </div>
             <div class="form-check mb-2">
-                <input id="scholarship-offered-check" class="form-check-input" data-toggle="collapse" href="#collapseOffered" type="checkbox" value="">
+                <input id="scholarship-offered-check" class="form-check-input" data-toggle="collapse" href="#collapseOffered" type="checkbox" autocomplete="off">
                 <label class="form-check-label" for="scholarship-offered-check">
                     Scholarship Offered?
                 </label>
@@ -34,25 +34,12 @@
             <div class="collapse" id="collapseOffered">
                 <div id="scholarship-offered-date" class="card card-body form-group">
                     <label asp-for="Scholarship.DateOffered" class="control-label"></label>
-                    <input asp-for="Scholarship.DateOffered" class="form-control" />
+                    <input asp-for="Scholarship.DateOffered" class="form-control" autocomplete="off" />
                     <span asp-validation-for="Scholarship.DateOffered" class="text-danger"></span>
                 </div>
-            </div>
+            </div> 
             <div class="form-check mb-2">
-                <input id="scholarship-awarded-check" class="form-check-input" data-toggle="collapse" href="#collapseAwarded" type="checkbox" value="">
-                <label class="form-check-label" for="scholarship-awarded-check">
-                    Scholarship Awarded?
-                </label>
-            </div>
-            <div class="collapse" id="collapseAwarded">
-                <div id="scholarship-awarded-date" class="card card-body form-group">
-                    <label asp-for="Scholarship.DateAwarded" class="control-label"></label>
-                    <input asp-for="Scholarship.DateAwarded" class="form-control" />
-                    <span asp-validation-for="Scholarship.DateAwarded" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-check mb-2">
-                <input id="scholarship-accepted-check" class="form-check-input" data-toggle="collapse" href="#collapseAccepted" type="checkbox" value="">
+                <input id="scholarship-accepted-check" class="form-check-input" data-toggle="collapse" href="#collapseAccepted" type="checkbox" autocomplete="off">
                 <label class="form-check-label" for="scholarship-accepted-check">
                     Scholarship Accepted?
                 </label>
@@ -60,10 +47,24 @@
             <div class="collapse" id="collapseAccepted">
                 <div id="scholarship-accepted-date" class="card card-body form-group">
                     <label asp-for="Scholarship.DateAccepted" class="control-label"></label>
-                    <input asp-for="Scholarship.DateAccepted" class="form-control" />
+                    <input asp-for="Scholarship.DateAccepted" class="form-control" autocomplete="off" />
                     <span asp-validation-for="Scholarship.DateAccepted" class="text-danger"></span>
                 </div>
             </div>
+            <div class="form-check mb-2">
+                <input id="scholarship-awarded-check" class="form-check-input" data-toggle="collapse" href="#collapseAwarded" type="checkbox" autocomplete="off">
+                <label class="form-check-label" for="scholarship-awarded-check">
+                    Scholarship Awarded?
+                </label>
+            </div>
+            <div class="collapse" id="collapseAwarded">
+                <div id="scholarship-awarded-date" class="card card-body form-group">
+                    <label asp-for="Scholarship.DateAwarded" class="control-label"></label>
+                    <input asp-for="Scholarship.DateAwarded" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="Scholarship.DateAwarded" class="text-danger"></span>
+                </div>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

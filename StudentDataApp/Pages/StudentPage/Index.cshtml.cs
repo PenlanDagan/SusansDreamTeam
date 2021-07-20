@@ -73,6 +73,10 @@ namespace StudentDataApp.Pages.StudentPage
                         // 2: First Name
                         // 6: Email
                         // 7: Phone Number
+                        // 8: Address
+                        // 9: City
+                        // 10: State
+                        // 11: Zip
                         newStudent = new Student { 
                             StudentSchoolID = int.Parse(values[0].Trim()), 
                             LastName = values[1].Trim(), 
@@ -87,13 +91,27 @@ namespace StudentDataApp.Pages.StudentPage
                     {
                         string email = values[6].Trim();
                         string phoneNumber = values[7].Trim();
-                        if (email.Length != 0 || phoneNumber.Length != 0)
+                        string address = values[8].Trim();
+                        string city = values[9].Trim();
+                        string state = values[10].Trim();
+                        string zip = values[11].Trim();
+
+                        if (email.Length != 0       || 
+                            phoneNumber.Length != 0 || 
+                            address.Length != 0     || 
+                            city.Length != 0        || 
+                            state.Length != 0       || 
+                            zip.Length != 0)
                         {
                             ContactInfo newContactInfo = new ContactInfo
                             {
                                 StudentID = newStudent.StudentID,
                                 EmailAddress = email.Length != 0 ? email : null,
-                                PhoneNumber = phoneNumber.Trim().Length != 0 ? phoneNumber : null
+                                PhoneNumber = phoneNumber.Length != 0 ? phoneNumber : null,
+                                StreetAddress = address.Length != 0 ? address : null,
+                                City = city.Length != 0 ? city : null,
+                                State = state.Length != 0 ? state : null,
+                                Zip = zip.Length != 0 ? zip : null
                             };
                             _context.ContactInfo.Add(newContactInfo);
                         }
