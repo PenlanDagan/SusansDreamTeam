@@ -22,13 +22,13 @@ namespace StudentDataApp.Pages.InternshipPage
         public int StudentID { get; set; }
         public Student Student { get; set; }
 
-        public IActionResult OnGet(int? id)
+        public IActionResult OnGet(int? studentId)
         {
-            if (id == null)
+            if (studentId == null)
             {
                 return NotFound();
             }
-            StudentID = (int)id;
+            StudentID = (int)studentId;
 
             return Page();
         }
@@ -47,7 +47,7 @@ namespace StudentDataApp.Pages.InternshipPage
             _context.Internship.Add(Internship);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Details", new { id = Internship.StudentID });
+            return RedirectToPage("./Details", new { studentId = Internship.StudentID });
         }
     }
 }

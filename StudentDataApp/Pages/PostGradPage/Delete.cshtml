@@ -9,7 +9,7 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Employment</h4>
+    <h4>Post-Graduation</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -23,6 +23,12 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Employment.GradCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employment.GradTerm)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employment.GradTerm)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Employment.CompName)
@@ -47,6 +53,6 @@
     <form method="post">
         <input type="hidden" asp-for="Employment.ID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        
     </form>
 </div>
