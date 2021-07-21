@@ -2,7 +2,7 @@
 @model StudentDataApp.Pages.StudentPage.IndexModel
 
 @{
-    ViewData["Title"] = "List";
+    ViewData["Title"] = "Student List";
 }
 
 <h1>Student List</h1>
@@ -28,18 +28,24 @@
         @*Display the selected file name in the file upload controls*@
         @section Scripts {
             <script>
-            $(document).ready(function () {
-                $('.custom-file-input').on("change", function () {
-                    var fileName = $(this).val().split("\\").pop();
-                    $(this).next('.custom-file-label').html(fileName);
+                $(document).ready(function () {
+                    $('.custom-file-input').on("change", function () {
+                        var fileName = $(this).val().split("\\").pop();
+                        $(this).next('.custom-file-label').html(fileName);
+                    });
                 });
-            });
             </script>
         }
     </form>
 }
 else
 {
+    <hr />
+    <h3>Query</h3>
+    <div class="d-flex justify-content-start">
+        <a asp-area="" asp-page="/ScholarshipPage/Index">Scholarship</a>
+    </div>
+    <hr />
     <table class="table">
         <thead>
             <tr>
