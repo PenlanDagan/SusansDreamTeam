@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentDataApp.Models
 {
-    public class Employment
+    public class PostGrad
     {
         [Key]
         public int ID { get; set; }
@@ -15,17 +15,20 @@ namespace StudentDataApp.Models
         public Student Student { get; set; }
 
         [Display(Name = "Graduation Code")]
-        public char GradCode { get; set; }
+        public string GradCode { get; set; }
 
-        [Display(Name = "Company Name")]
+        [Display(Name = "Company/Institution Name")]
         public string CompName { get; set; }
 
-        [Display(Name = "Company Location")]
+        [Display(Name = "Company/Institution Location")]
         public string CompLocation { get; set; }
 
         [Display(Name = "Job Salary")]
         [DataType(DataType.Currency)]
         public double Salary { get; set; }
+
+        [Display(Name = "Graduation Term")]
+        public string GradTerm { get; set; }
 
     }
 }

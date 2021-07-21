@@ -20,7 +20,7 @@ namespace StudentDataApp.Pages.EmploymentPage
         }
 
         [BindProperty]
-        public Employment Employment { get; set; }
+        public PostGrad Employment { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

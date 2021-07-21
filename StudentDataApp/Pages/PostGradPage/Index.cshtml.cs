@@ -19,7 +19,7 @@ namespace StudentDataApp.Pages.EmploymentPage
             _context = context;
         }
 
-        public IList<Employment> Employment { get;set; }
+        public IList<PostGrad> Employment { get;set; }
 
         public async Task OnGetAsync()
         {

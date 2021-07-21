@@ -1,4 +1,4 @@
-﻿@page "{id:int?}"
+﻿@page "{studentId:int?}"
 @model StudentDataApp.Pages.InternshipPage.DetailsModel
 
 @{
@@ -6,7 +6,7 @@
     ViewData["StudentID"] = Model.StudentID;
 }
 
-<h1>Details</h1>
+
 
 <h1>@Model.Student.LastName, @Model.Student.FirstName | @Model.Student.StudentSchoolID</h1>
 
@@ -18,7 +18,7 @@
         foreach (var item in Model.Internships)
         {
             <dl class="row">
-               
+
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(modelItem => item.IntCompName)
                 </dt>
@@ -42,11 +42,11 @@
                 </dt>
 
 
-               </dl>
+            </dl>
         }
     }
     else
     {
-<p>There is no internship for this student. <a asp-page="Create" asp-route-id=@Model.StudentID>Create an internship item</a></p>}
+        <p>There is no internship for this student. <a asp-page="Create" asp-route-id=@Model.StudentID>Create an internship item</a></p>}
 </div>
 

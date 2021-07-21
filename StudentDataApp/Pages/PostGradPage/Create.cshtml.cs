@@ -22,19 +22,20 @@ namespace StudentDataApp.Pages.EmploymentPage
         public int StudentID { get; set; }
         public Student Student { get; set; }
 
-        public IActionResult OnGet(int? id)
+        public IActionResult OnGet(int? studentId)
         {
-            if (id == null)
+            if (studentId == null)
             {
                 return NotFound();
             }
-            StudentID = (int)id;
+            StudentID = (int)studentId;
 
             return Page();
         }
 
         [BindProperty]
-        public Employment Employment { get; set; }
+        public PostGrad Employment { get; set; }
+        public readonly List<SelectListItem> GradCodes = PostGradCodeSelectList.getItems();
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -47,7 +48,7 @@ namespace StudentDataApp.Pages.EmploymentPage
             _context.Employment.Add(Employment);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Details", new { id = Employment.StudentID });
+            return RedirectToPage("./Details", new { studentId = Employment.StudentID });
         }
     }
 }
