@@ -1,9 +1,9 @@
-﻿@page "{studentId:int?}/{itemId:int?}"
+﻿@page "{id:int?}"
 @model StudentDataApp.Pages.ScholarshipPage.EditModel
 
 @{
     ViewData["Title"] = "Edit";
-    ViewData["StudentID"] = Model.StudentID;
+    ViewData["StudentID"] = Model.Scholarship.StudentID;
 }
 
 <h1>Edit</h1>
@@ -36,22 +36,8 @@
             <div class="collapse" id="collapseOffered">
                 <div class="card card-body form-group">
                     <label asp-for="Scholarship.DateOffered" class="control-label"></label>
-                    <input id="offeredInput" asp-for="Scholarship.DateOffered" class="form-control" autocomplete="off"/>
+                    <input id="offeredInput" asp-for="Scholarship.DateOffered" class="form-control" autocomplete="off" />
                     <span asp-validation-for="Scholarship.DateOffered" class="text-danger"></span>
-                </div>
-            </div>
-            <!-- Scholarship Accepted Check -->
-            <div class="form-check mb-2">
-                <input id="acceptedCheck" class="form-check-input" data-toggle="collapse" href="#collapseAccepted" type="checkbox" autocomplete="off">
-                <label class="form-check-label" for="acceptedCheck">
-                    Scholarship Accepted?
-                </label>
-            </div>
-            <div class="collapse" id="collapseAccepted">
-                <div class="card card-body form-group">
-                    <label asp-for="Scholarship.DateAccepted" class="control-label"></label>
-                    <input id="acceptedInput"asp-for="Scholarship.DateAccepted" class="form-control" autocomplete="off"/>
-                    <span asp-validation-for="Scholarship.DateAccepted" class="text-danger"></span>
                 </div>
             </div>
             <!-- Scholarship Awarded Check -->
@@ -68,7 +54,20 @@
                     <span asp-validation-for="Scholarship.DateAwarded" class="text-danger"></span>
                 </div>
             </div>
-
+            <!-- Scholarship Accepted Check -->
+            <div class="form-check mb-2">
+                <input id="acceptedCheck" class="form-check-input" data-toggle="collapse" href="#collapseAccepted" type="checkbox" autocomplete="off">
+                <label class="form-check-label" for="acceptedCheck">
+                    Scholarship Accepted?
+                </label>
+            </div>
+            <div class="collapse" id="collapseAccepted">
+                <div class="card card-body form-group">
+                    <label asp-for="Scholarship.DateAccepted" class="control-label"></label>
+                    <input id="acceptedInput" asp-for="Scholarship.DateAccepted" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="Scholarship.DateAccepted" class="text-danger"></span>
+                </div>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -79,26 +78,47 @@
 @section Scripts {
     <script>
         const offeredInput = document.getElementById("offeredInput");
+        const offeredCheck = document.getElementById("offeredCheck");
         if (offeredInput.getAttribute("value") != "") {
             const collapseOffered = document.getElementById("collapseOffered");
             collapseOffered.classList.add("show");
-            const offeredCheck = document.getElementById("offeredCheck");
             offeredCheck.checked = true;
         }
+
         const acceptedInput = document.getElementById("acceptedInput");
+        const acceptedCheck = document.getElementById("acceptedCheck");
         if (acceptedInput.getAttribute("value") != "") {
             const collapseAccepted = document.getElementById("collapseAccepted");
             collapseAccepted.classList.add("show");
-            const acceptedCheck = document.getElementById("acceptedCheck");
             acceptedCheck.checked = true;
         }
+
         const awardedInput = document.getElementById("awardedInput");
+        const awardedCheck = document.getElementById("awardedCheck");
         if (awardedInput.getAttribute("value") != "") {
             const collapseAwarded = document.getElementById("collapseAwarded");
             collapseAwarded.classList.add("show");
-            const awardedCheck = document.getElementById("awardedCheck");
             awardedCheck.checked = true;
         }
+
+        offeredCheck.onclick = () => {
+            if (!offeredCheck.checked) {
+                offeredInput.setAttribute("value", "");
+            }
+        }
+
+        awardedCheck.onclick = () => {
+            if (!awardedCheck.checked) {
+                awardedInput.setAttribute("value", "");
+            }
+        }
+
+        acceptedCheck.onclick = () => {
+            if (!acceptedCheck.checked) {
+                acceptedInput.setAttribute("value", "");
+            }
+        }
+
     </script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

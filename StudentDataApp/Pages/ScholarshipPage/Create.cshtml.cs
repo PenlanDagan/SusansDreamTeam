@@ -21,13 +21,13 @@ namespace StudentDataApp.Pages.ScholarshipPage
 
         public int StudentID { get; set; }
 
-        public IActionResult OnGet(int? id)
+        public IActionResult OnGet(int? studentId)
         {
-            if (id == null)
+            if (studentId == null)
             {
                 return NotFound();
             }
-            StudentID = (int)id;
+            StudentID = (int)studentId;
 
             return Page();
         }
@@ -45,7 +45,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
 
             _context.Scholarship.Add(Scholarship);
             await _context.SaveChangesAsync();
-            return RedirectToPage("./Details", new { id = Scholarship.StudentID });
+            return RedirectToPage("./Details", new { studentId = Scholarship.StudentID });
         }
     }
 }
