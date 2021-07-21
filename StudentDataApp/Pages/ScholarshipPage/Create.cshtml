@@ -1,4 +1,4 @@
-﻿@page "{id:int?}"
+﻿@page "{studentId:int?}"
 @model StudentDataApp.Pages.ScholarshipPage.CreateModel
 
 @{
@@ -37,19 +37,6 @@
                     <input asp-for="Scholarship.DateOffered" class="form-control" autocomplete="off" />
                     <span asp-validation-for="Scholarship.DateOffered" class="text-danger"></span>
                 </div>
-            </div> 
-            <div class="form-check mb-2">
-                <input id="scholarship-accepted-check" class="form-check-input" data-toggle="collapse" href="#collapseAccepted" type="checkbox" autocomplete="off">
-                <label class="form-check-label" for="scholarship-accepted-check">
-                    Scholarship Accepted?
-                </label>
-            </div>
-            <div class="collapse" id="collapseAccepted">
-                <div id="scholarship-accepted-date" class="card card-body form-group">
-                    <label asp-for="Scholarship.DateAccepted" class="control-label"></label>
-                    <input asp-for="Scholarship.DateAccepted" class="form-control" autocomplete="off" />
-                    <span asp-validation-for="Scholarship.DateAccepted" class="text-danger"></span>
-                </div>
             </div>
             <div class="form-check mb-2">
                 <input id="scholarship-awarded-check" class="form-check-input" data-toggle="collapse" href="#collapseAwarded" type="checkbox" autocomplete="off">
@@ -64,6 +51,19 @@
                     <span asp-validation-for="Scholarship.DateAwarded" class="text-danger"></span>
                 </div>
             </div>
+            <div class="form-check mb-2">
+                <input id="scholarship-accepted-check" class="form-check-input" data-toggle="collapse" href="#collapseAccepted" type="checkbox" autocomplete="off">
+                <label class="form-check-label" for="scholarship-accepted-check">
+                    Scholarship Accepted?
+                </label>
+            </div>
+            <div class="collapse" id="collapseAccepted">
+                <div id="scholarship-accepted-date" class="card card-body form-group">
+                    <label asp-for="Scholarship.DateAccepted" class="control-label"></label>
+                    <input asp-for="Scholarship.DateAccepted" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="Scholarship.DateAccepted" class="text-danger"></span>
+                </div>
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -73,5 +73,32 @@
 </div>
 
 @section Scripts {
+    <script>
+        const offeredInput = document.getElementById("offeredInput");
+        const offeredCheck = document.getElementById("offeredCheck");
+        const acceptedInput = document.getElementById("acceptedInput");
+        const acceptedCheck = document.getElementById("acceptedCheck");
+        const awardedInput = document.getElementById("awardedInput");
+        const awardedCheck = document.getElementById("awardedCheck");
+
+        offeredCheck.onclick = () => {
+            if (!offeredCheck.checked) {
+                offeredInput.setAttribute("value", "");
+            }
+        }
+
+        awardedCheck.onclick = () => {
+            if (!awardedCheck.checked) {
+                awardedInput.setAttribute("value", "");
+            }
+        }
+
+        acceptedCheck.onclick = () => {
+            if (!acceptedCheck.checked) {
+                acceptedInput.setAttribute("value", "");
+            }
+        }
+    </script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
