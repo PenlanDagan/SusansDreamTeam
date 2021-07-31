@@ -30,28 +30,24 @@ namespace StudentDataApp.Pages.StudentPage
         }
 
         [BindProperty]
-        public IFormFile UnorganizedStudentData { get; set; }
+        public IFormFile RawStudentData { get; set; }
 
-        public async Task OnPostAsync(int? id)
+        public async Task OnPostAsync()
         {
-            if (id == null)
+            if (RawStudentData != null)
             {
-                if (UnorganizedStudentData != null)
-                {
-                    await ProcessUnorganizedData();
-                }
+                await ProcessRawData();
             }
         } 
 
-        public async Task ProcessUnorganizedData()
+        public async Task ProcessRawData()
         {
-            using (StreamReader reader = new(UnorganizedStudentData.OpenReadStream()))
-            {
-                List<ContactInfo> contactInfos = new();
-                
+            //Getting old student list for comparision
+            Student = await _context.Student.ToListAsync();
+            using (StreamReader reader = new(RawStudentData.OpenReadStream()))
+            {   
                 // Skip the first title line
                 await reader.ReadLineAsync();
-
                 Student newStudent = null;
 
                 // Start reading the data lines
@@ -63,15 +59,19 @@ namespace StudentDataApp.Pages.StudentPage
                     //Adding Student
                     if (values[0].Trim().Length != 0)
                     {
-                        // 0: Student ID
-                        // 1: Last Name
-                        // 2: First Name
-                        // 6: Email
-                        // 7: Phone Number
-                        // 8: Address
-                        // 9: City
-                        // 10: State
-                        // 11: Zip
+                        //Check if student is already in the database.
+                        //If student is in the database, then skip that student.
+                        if (Student.Count > 0)
+                        {
+                            int StudentSchoolID = int.Parse(values[0].Trim());
+                            if (Student.FirstOrDefault(s => s.StudentSchoolID == StudentSchoolID) != null)
+                            {
+                                continue;
+                            }
+                        }
+
+                        // 0: Student ID, 1: Last Name, 2: First Name,
+                        // 6: Email, 7: Phone Number, 8: Address, 9: City, 10: State, 11: Zip
                         newStudent = new Student { 
                             StudentSchoolID = int.Parse(values[0].Trim()), 
                             LastName = values[1].Trim(), 
@@ -112,7 +112,7 @@ namespace StudentDataApp.Pages.StudentPage
                         }
                         else if (values[0].Trim().Length == 0)
                         {
-                            // If there's no Student ID, no email, no phone number,
+                            // If there's no Student ID, no Contact Infos,
                             // assume that the file ended and exit.
                             break;
                         }
@@ -120,7 +120,8 @@ namespace StudentDataApp.Pages.StudentPage
                 }
 
                 await _context.SaveChangesAsync();
-                await OnGetAsync();
+                //Repopulate Student data
+                Student = await _context.Student.ToListAsync();
             };
         }
         
