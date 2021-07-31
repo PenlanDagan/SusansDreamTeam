@@ -96,6 +96,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DateAccepted)
             </td>
+            <td>
+                <a class="btn btn-primary" asp-page="../ContactInfoPage/Details" asp-route-studentId="@item.StudentID" >Select</a>
+            </td>
         </tr>
 }
     </tbody>

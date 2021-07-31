@@ -41,11 +41,6 @@ namespace StudentDataApp.Pages.StudentPage
                     await ProcessUnorganizedData();
                 }
             }
-            else
-            {
-                Response.Redirect("ContactInfoPage/Details/" + id.ToString(), true);
-                await OnGetAsync();
-            }
         } 
 
         public async Task ProcessUnorganizedData()
