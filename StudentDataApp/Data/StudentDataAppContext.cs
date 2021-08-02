@@ -19,5 +19,7 @@ namespace StudentDataApp.Data
         public DbSet<Student> Student { get; set; }
         public DbSet<StudentDataApp.Models.Post_Registration> Post_Registration { get; set; }
         public DbSet<StudentDataApp.Models.Registration> Registration { get; set; }
+        public DbSet<StudentDataApp.Models.Internship> Internship { get; set; }
+        public DbSet<StudentDataApp.Models.PostGrad> Employment { get; set; }
     }
 }

@@ -1,0 +1,53 @@
+﻿@page "{id:int?}"
+@model StudentDataApp.Pages.EmploymentPage.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    ViewData["StudentID"] = Model.Employment.StudentID;
+}
+
+<h1>Edit</h1>
+
+<h4>Post-Graduation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Employment.ID" />
+            <input type="hidden" asp-for="Employment.StudentID" />
+            <div class="form-group">
+                <label asp-for="Employment.GradCode" class="control-label"></label>
+                <select asp-for="Employment.GradCode" asp-items="@Model.GradCodes" class="form-control"></select>
+                <span asp-validation-for="Employment.GradCode" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Employment.GradTerm" class="control-label"></label>
+                <input asp-for="Employment.GradTerm" class="form-control" />
+                <span asp-validation-for="Employment.GradTerm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employment.CompName" class="control-label"></label>
+                <input asp-for="Employment.CompName" class="form-control" />
+                <span asp-validation-for="Employment.CompName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employment.CompLocation" class="control-label"></label>
+                <input asp-for="Employment.CompLocation" class="form-control" />
+                <span asp-validation-for="Employment.CompLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employment.Salary" class="control-label"></label>
+                <input asp-for="Employment.Salary" class="form-control" />
+                <span asp-validation-for="Employment.Salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

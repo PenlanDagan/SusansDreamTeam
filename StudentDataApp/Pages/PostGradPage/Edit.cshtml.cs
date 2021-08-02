@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.ContactInfoPage
+namespace StudentDataApp.Pages.EmploymentPage
 {
     public class EditModel : PageModel
     {
@@ -21,8 +21,10 @@ namespace StudentDataApp.Pages.ContactInfoPage
         }
 
         [BindProperty]
-        public ContactInfo ContactInfo { get; set; }
-        public readonly List<SelectListItem> States = StateSelectList.getItems();
+        public PostGrad Employment { get; set; }
+        public Student Student { get; set; }
+        public readonly List<SelectListItem> GradCodes = PostGradCodeSelectList.getItems();
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,9 +33,10 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return NotFound();
             }
 
-            ContactInfo = await _context.ContactInfo.FirstOrDefaultAsync(m => m.ID == id);
+ 
+            Employment = await _context.Employment.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (ContactInfo == null)
+            if (Employment == null)
             {
                 return NotFound();
             }
@@ -49,7 +52,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return Page();
             }
 
-            _context.Attach(ContactInfo).State = EntityState.Modified;
+            _context.Attach(Employment).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +60,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ContactInfoExists(ContactInfo.ID))
+                if (!EmploymentExists(Employment.ID))
                 {
                     return NotFound();
                 }
@@ -67,12 +70,12 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 }
             }
 
-            return RedirectToPage("./Details", new { studentId = ContactInfo.StudentID });
+            return RedirectToPage("./Details", new { studentId = Employment.StudentID });
         }
 
-        private bool ContactInfoExists(int id)
+        private bool EmploymentExists(int id)
         {
-            return _context.ContactInfo.Any(e => e.ID == id);
+            return _context.Employment.Any(e => e.ID == id);
         }
     }
 }
