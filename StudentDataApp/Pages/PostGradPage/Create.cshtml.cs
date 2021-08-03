@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.EmploymentPage
+namespace StudentDataApp.Pages.PostGradPage
 {
     public class CreateModel : PageModel
     {
@@ -34,7 +34,7 @@ namespace StudentDataApp.Pages.EmploymentPage
         }
 
         [BindProperty]
-        public PostGrad Employment { get; set; }
+        public PostGrad PostGrad { get; set; }
         public readonly List<SelectListItem> GradCodes = PostGradCodeSelectList.getItems();
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -45,10 +45,10 @@ namespace StudentDataApp.Pages.EmploymentPage
                 return Page();
             }
 
-            _context.Employment.Add(Employment);
+            _context.PostGrad.Add(PostGrad);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Details", new { studentId = Employment.StudentID });
+            return RedirectToPage("./Details", new { studentId = PostGrad.StudentID });
         }
     }
 }

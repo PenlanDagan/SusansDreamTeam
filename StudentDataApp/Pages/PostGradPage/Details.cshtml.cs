@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.EmploymentPage
+namespace StudentDataApp.Pages.PostGradPage
 {
     public class DetailsModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace StudentDataApp.Pages.EmploymentPage
         public int StudentID { get; set; }
         public Student Student { get; set; }
 
-        public List<PostGrad> Employments { get; set; }
+        public List<PostGrad> PostGrads { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? studentId)
         {
@@ -30,7 +30,7 @@ namespace StudentDataApp.Pages.EmploymentPage
                 return NotFound();
             }
             StudentID = (int)studentId;
-            Employments = await _context.Employment.Where(m => m.StudentID == studentId).ToListAsync();
+            PostGrads = await _context.PostGrad.Where(m => m.StudentID == studentId).ToListAsync();
             Student = await _context.Student.FirstOrDefaultAsync(s => s.StudentID == studentId);
         
             return Page();

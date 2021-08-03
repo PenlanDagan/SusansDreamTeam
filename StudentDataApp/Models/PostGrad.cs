@@ -25,7 +25,7 @@ namespace StudentDataApp.Models
 
         [Display(Name = "Job Salary")]
         [DataType(DataType.Currency)]
-        public double Salary { get; set; }
+        public double? Salary { get; set; }
 
         [Display(Name = "Graduation Term")]
         public string GradTerm { get; set; }

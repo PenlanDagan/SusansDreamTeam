@@ -1,5 +1,5 @@
 ﻿@page "{studentId:int?}"
-@model StudentDataApp.Pages.EmploymentPage.DetailsModel
+@model StudentDataApp.Pages.PostGradPage.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
@@ -12,9 +12,9 @@
 <div>
     <h4>Post-Graduation</h4>
     <hr />
-    @if (Model.Employments.Count != 0)
+    @if (Model.PostGrads.Count != 0)
     {
-        foreach (var item in Model.Employments)
+        foreach (var item in Model.PostGrads)
         {
             <dl class="row">
                 <dt class="col-sm-2">
@@ -55,5 +55,5 @@
     }
     else
     {
-        <p>There is no employment for this student. <a asp-page="Create" asp-route-studentId=@Model.StudentID>Create an employment item</a></p>}
+        <p>There is no post-graduation item for this student. <a asp-page="Create" asp-route-studentId=@Model.StudentID>Create an post-graduation item</a></p>}
 </div>
