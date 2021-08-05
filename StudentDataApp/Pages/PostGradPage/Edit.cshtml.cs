@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.EmploymentPage
+namespace StudentDataApp.Pages.PostGradPage
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace StudentDataApp.Pages.EmploymentPage
         }
 
         [BindProperty]
-        public PostGrad Employment { get; set; }
+        public PostGrad PostGrad { get; set; }
         public Student Student { get; set; }
         public readonly List<SelectListItem> GradCodes = PostGradCodeSelectList.getItems();
 
@@ -34,9 +34,9 @@ namespace StudentDataApp.Pages.EmploymentPage
             }
 
  
-            Employment = await _context.Employment.FirstOrDefaultAsync(m => m.ID == id);
+            PostGrad = await _context.PostGrad.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Employment == null)
+            if (PostGrad == null)
             {
                 return NotFound();
             }
@@ -52,7 +52,7 @@ namespace StudentDataApp.Pages.EmploymentPage
                 return Page();
             }
 
-            _context.Attach(Employment).State = EntityState.Modified;
+            _context.Attach(PostGrad).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace StudentDataApp.Pages.EmploymentPage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EmploymentExists(Employment.ID))
+                if (!PostGradExists(PostGrad.ID))
                 {
                     return NotFound();
                 }
@@ -70,12 +70,12 @@ namespace StudentDataApp.Pages.EmploymentPage
                 }
             }
 
-            return RedirectToPage("./Details", new { studentId = Employment.StudentID });
+            return RedirectToPage("./Details", new { studentId = PostGrad.StudentID });
         }
 
-        private bool EmploymentExists(int id)
+        private bool PostGradExists(int id)
         {
-            return _context.Employment.Any(e => e.ID == id);
+            return _context.PostGrad.Any(e => e.ID == id);
         }
     }
 }

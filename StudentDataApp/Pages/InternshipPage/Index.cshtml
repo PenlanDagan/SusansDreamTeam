@@ -5,50 +5,82 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Internship[0].Student)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Internship[0].IntCompName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Internship[0].IntCompLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Internship[0].IntWage)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Internship) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IntCompName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IntCompLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IntWage)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+<h1>Internship List</h1>
+<hr />
+<h3>Criteria</h3>
+<form method="get">
+    <div class="d-flex justify-content-start align-items-center">
+        <div class="form-group mr-4">
+            <label for="compName">Student First Name</label>
+            <input class="form-control" autocomplete="off" name="stuIntFName" value=@Model.InputIntStuFName />
+        </div>
+        <div class="form-group mr-4">
+            <label for="compName">Internship Company Name</label>
+            <input class="form-control" autocomplete="off" name="compIntName" value=@Model.InputIntCompName />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Filter" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+@if (Model.Internship.Count > 0)
+{
+    <hr />
+    <h3>Internship Report</h3>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Average Hourly Wage
+        </dt>
+        <dd class="col-sm-10">
+            @Model.IntAvgWage
+        </dd>
+        <dt class="col-sm-2">
+            Interns
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Internship.Count
+        </dd>
+    </dl>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Internship[0].Student.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Internship[0].IntCompName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Internship[0].IntCompLocation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Internship[0].IntWage)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Internship)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IntCompName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IntCompLocation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IntWage)
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-page="../InternshipPage/Details" asp-route-studentId="@item.StudentID">Select</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
