@@ -19,12 +19,45 @@ namespace StudentDataApp.Pages.InternshipPage
             _context = context;
         }
 
-        public IList<Internship> Internship { get;set; }
+        public IList<Internship> Internship { get; set; }
 
-        public async Task OnGetAsync()
+        public string InputIntCompName { get; set; }
+        public string InputIntStuFName { get; set; }
+        public string IntAvgWage { get; set; }
+
+        public async Task OnGetAsync(string compIntName = null, string stuIntFName = null)
         {
-            Internship = await _context.Internship
-                .Include(i => i.Student).ToListAsync();
+            InputIntCompName = compIntName;
+            InputIntStuFName = stuIntFName;
+
+
+            Internship = await _context.Internship.Where(e => (
+                        (compIntName == null || e.IntCompName.ToUpper().Trim() == compIntName.ToUpper().Trim()) &&
+                        (stuIntFName == null || e.Student.FirstName.ToUpper().Trim() == stuIntFName.ToUpper().Trim())
+                    )
+                ).Include(i => i.Student).ToListAsync();
+
+
+            double totalWage = 0;
+
+
+
+            foreach (Internship i in Internship)
+            {
+                if (i.IntWage != null)
+                {
+                    totalWage += (double)i.IntWage;
+                }
+            }
+            if (Internship.Count > 0)
+            {
+                IntAvgWage = (totalWage / Internship.Count).ToString("C2");
+            }
+            else
+            {
+                IntAvgWage = 0.ToString("C2");
+            }
+
         }
     }
 }

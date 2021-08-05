@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.EmploymentPage
+namespace StudentDataApp.Pages.PostGradPage
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace StudentDataApp.Pages.EmploymentPage
         }
 
         [BindProperty]
-        public PostGrad Employment { get; set; }
+        public PostGrad PostGrad { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,10 +29,10 @@ namespace StudentDataApp.Pages.EmploymentPage
                 return NotFound();
             }
 
-            Employment = await _context.Employment
+            PostGrad = await _context.PostGrad
                 .Include(e => e.Student).FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Employment == null)
+            if (PostGrad == null)
             {
                 return NotFound();
             }
@@ -46,11 +46,11 @@ namespace StudentDataApp.Pages.EmploymentPage
                 return NotFound();
             }
 
-            Employment = await _context.Employment.FindAsync(id);
+            PostGrad = await _context.PostGrad.FindAsync(id);
 
-            if (Employment != null)
+            if (PostGrad != null)
             {
-                _context.Employment.Remove(Employment);
+                _context.PostGrad.Remove(PostGrad);
                 await _context.SaveChangesAsync();
             }
 

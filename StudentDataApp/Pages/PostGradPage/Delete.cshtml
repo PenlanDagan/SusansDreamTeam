@@ -1,5 +1,5 @@
 ﻿@page
-@model StudentDataApp.Pages.EmploymentPage.DeleteModel
+@model StudentDataApp.Pages.PostGradPage.DeleteModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -13,45 +13,45 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employment.Student)
+            @Html.DisplayNameFor(model => model.PostGrad.Student)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employment.Student.FirstName)
+            @Html.DisplayFor(model => model.PostGrad.Student.FirstName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employment.GradCode)
+            @Html.DisplayNameFor(model => model.PostGrad.GradCode)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employment.GradCode)
+            @Html.DisplayFor(model => model.PostGrad.GradCode)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employment.GradTerm)
+            @Html.DisplayNameFor(model => model.PostGrad.GradTerm)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employment.GradTerm)
+            @Html.DisplayFor(model => model.PostGrad.GradTerm)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employment.CompName)
+            @Html.DisplayNameFor(model => model.PostGrad.CompName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employment.CompName)
+            @Html.DisplayFor(model => model.PostGrad.CompName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employment.CompLocation)
+            @Html.DisplayNameFor(model => model.PostGrad.CompLocation)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employment.CompLocation)
+            @Html.DisplayFor(model => model.PostGrad.CompLocation)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employment.Salary)
+            @Html.DisplayNameFor(model => model.PostGrad.Salary)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employment.Salary)
+            @Html.DisplayFor(model => model.PostGrad.Salary)
         </dd>
     </dl>
     
     <form method="post">
-        <input type="hidden" asp-for="Employment.ID" />
+        <input type="hidden" asp-for="PostGrad.ID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         
     </form>
