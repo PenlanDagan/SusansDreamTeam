@@ -64,12 +64,5 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 TotalAmountAwarded += s.ScholarshipAmount;
             }
         }
-
-        public void OnPostAsync(int? id)
-        {
-            if (id != null) {
-                Response.Redirect("ContactInfoPage/Details/" + id.ToString(), false);
-            }
-        }
     }
 }
