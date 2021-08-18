@@ -24,19 +24,22 @@ namespace StudentDataApp.Pages.ScholarshipPage
         public List<SelectListItem> AcceptStatusList = ScholarshipStatusSelectList.getItems();
         public List<SelectListItem> AwardStatusList = ScholarshipStatusSelectList.getItems();
 
-        public string InputToDate { get; set; }
-        public string InputFromDate { get; set; }
+        public string InputStartTerm { get; set; }
 
         public double TotalAmountAwarded { get; set; }
 
-        public async Task OnGetAsync(string fromDate = null, string toDate = null, string acceptStatus = "IGNORE", string awardStatus = "IGNORE")
+        public async Task OnGetAsync(string startTerm = null, string acceptStatus = null, string awardStatus = null)
         {
-            InputFromDate = fromDate;
-            InputToDate = toDate;
+            if (startTerm == null && acceptStatus == null && awardStatus == null)
+            {
+                return;
+            }
+
+            InputStartTerm = startTerm;
             AcceptStatusList.Find(item => item.Value == acceptStatus).Selected = true;
             AwardStatusList.Find(item => item.Value == awardStatus).Selected = true;
             //Assuming querying all
-            if (fromDate == null || toDate == null)
+            if (startTerm == null || startTerm.Trim().Length == 0)
             {
                 /* We knew the world would not be the same. A few people laughed, a few people cried, 
                  * most people were silent. I remembered the line from the Hindu scripture, the Bhagavad-Gita.
@@ -52,11 +55,11 @@ namespace StudentDataApp.Pages.ScholarshipPage
             } else
             {
                 Scholarship = await _context.Scholarship.Where(s => (
-                    s.DateAwarded >= DateTime.Parse(fromDate) && s.DateAwarded <= DateTime.Parse(toDate) &&
+                    s.Student.Post_Registrations.Any(p => p.StartTerm == startTerm.Trim()) &&
                     (awardStatus == "IGNORE" || (awardStatus == "TRUE" ? s.DateAwarded != null : s.DateAwarded == null)) &&
                     (acceptStatus == "IGNORE" || (acceptStatus == "TRUE" ? s.DateAccepted != null : s.DateAccepted == null))
                     )
-                ).Include(i => i.Student).ToListAsync();
+                ).Include(scholarship => scholarship.Student).ThenInclude(student => student.Post_Registrations).ToListAsync();
             }
 
             TotalAmountAwarded = 0;
