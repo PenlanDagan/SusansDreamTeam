@@ -19,19 +19,16 @@
 
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Post_Registration.schedComp" /> @Html.DisplayNameFor(model => model.Post_Registration.schedComp)
+                    <input class="form-check-input" asp-for="Post_Registration.schedComp" />
+                    @Html.DisplayNameFor(model => model.Post_Registration.schedComp)
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="Post_Registration.startDate" class="control-label"></label>
-                <input asp-for="Post_Registration.startDate" class="form-control" />
-                <span asp-validation-for="Post_Registration.startDate" class="text-danger"></span>
+                <label asp-for="Post_Registration.StartTerm" class="control-label"></label>
+                <input asp-for="Post_Registration.StartTerm" class="form-control" />
+                <span asp-validation-for="Post_Registration.StartTerm" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Post_Registration.gradDate" class="control-label"></label>
-                <input asp-for="Post_Registration.gradDate" class="form-control" />
-                <span asp-validation-for="Post_Registration.gradDate" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="Post_Registration.emphasis" class="control-label"></label>
                 <input asp-for="Post_Registration.emphasis" class="form-control" />

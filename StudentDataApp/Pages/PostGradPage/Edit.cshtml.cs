@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.ContactInfoPage
+namespace StudentDataApp.Pages.PostGradPage
 {
     public class EditModel : PageModel
     {
@@ -21,8 +21,10 @@ namespace StudentDataApp.Pages.ContactInfoPage
         }
 
         [BindProperty]
-        public ContactInfo ContactInfo { get; set; }
-        public readonly List<SelectListItem> States = StateSelectList.getItems();
+        public PostGrad PostGrad { get; set; }
+        public Student Student { get; set; }
+        public readonly List<SelectListItem> GradCodes = PostGradCodeSelectList.getItems();
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,9 +33,10 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return NotFound();
             }
 
-            ContactInfo = await _context.ContactInfo.FirstOrDefaultAsync(m => m.ID == id);
+ 
+            PostGrad = await _context.PostGrad.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (ContactInfo == null)
+            if (PostGrad == null)
             {
                 return NotFound();
             }
@@ -49,7 +52,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return Page();
             }
 
-            _context.Attach(ContactInfo).State = EntityState.Modified;
+            _context.Attach(PostGrad).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +60,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ContactInfoExists(ContactInfo.ID))
+                if (!PostGradExists(PostGrad.ID))
                 {
                     return NotFound();
                 }
@@ -67,12 +70,12 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 }
             }
 
-            return RedirectToPage("./Details", new { studentId = ContactInfo.StudentID });
+            return RedirectToPage("./Details", new { studentId = PostGrad.StudentID });
         }
 
-        private bool ContactInfoExists(int id)
+        private bool PostGradExists(int id)
         {
-            return _context.ContactInfo.Any(e => e.ID == id);
+            return _context.PostGrad.Any(e => e.ID == id);
         }
     }
 }

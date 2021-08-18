@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.ScholarshipPage
+namespace StudentDataApp.Pages.InternshipPage
 {
     public class CreateModel : PageModel
     {
@@ -20,6 +20,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
         }
 
         public int StudentID { get; set; }
+        public Student Student { get; set; }
 
         public IActionResult OnGet(int? studentId)
         {
@@ -33,7 +34,7 @@ namespace StudentDataApp.Pages.ScholarshipPage
         }
 
         [BindProperty]
-        public Scholarship Scholarship { get; set; }
+        public Internship Internship { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -43,9 +44,10 @@ namespace StudentDataApp.Pages.ScholarshipPage
                 return Page();
             }
 
-            _context.Scholarship.Add(Scholarship);
+            _context.Internship.Add(Internship);
             await _context.SaveChangesAsync();
-            return RedirectToPage("./Details", new { studentId = Scholarship.StudentID });
+
+            return RedirectToPage("./Details", new { studentId = Internship.StudentID });
         }
     }
 }

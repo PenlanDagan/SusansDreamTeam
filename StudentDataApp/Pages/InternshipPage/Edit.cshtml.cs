@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.ContactInfoPage
+namespace StudentDataApp.Pages.InternshipPage
 {
     public class EditModel : PageModel
     {
@@ -21,9 +21,9 @@ namespace StudentDataApp.Pages.ContactInfoPage
         }
 
         [BindProperty]
-        public ContactInfo ContactInfo { get; set; }
-        public readonly List<SelectListItem> States = StateSelectList.getItems();
+        public Internship Internship { get; set; }
 
+        public Student Student { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -31,9 +31,10 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return NotFound();
             }
 
-            ContactInfo = await _context.ContactInfo.FirstOrDefaultAsync(m => m.ID == id);
+           
+            Internship = await _context.Internship.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (ContactInfo == null)
+            if (Internship == null)
             {
                 return NotFound();
             }
@@ -49,7 +50,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return Page();
             }
 
-            _context.Attach(ContactInfo).State = EntityState.Modified;
+            _context.Attach(Internship).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +58,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ContactInfoExists(ContactInfo.ID))
+                if (!InternshipExists(Internship.ID))
                 {
                     return NotFound();
                 }
@@ -67,12 +68,12 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 }
             }
 
-            return RedirectToPage("./Details", new { studentId = ContactInfo.StudentID });
+            return RedirectToPage("./Details", new { studentId = Internship.StudentID });
         }
 
-        private bool ContactInfoExists(int id)
+        private bool InternshipExists(int id)
         {
-            return _context.ContactInfo.Any(e => e.ID == id);
+            return _context.Internship.Any(e => e.ID == id);
         }
     }
 }

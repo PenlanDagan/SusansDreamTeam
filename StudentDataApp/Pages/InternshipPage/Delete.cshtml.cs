@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentDataApp.Data;
 using StudentDataApp.Models;
 
-namespace StudentDataApp.Pages.ContactInfoPage
+namespace StudentDataApp.Pages.InternshipPage
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
         }
 
         [BindProperty]
-        public ContactInfo ContactInfo { get; set; }
+        public Internship Internship { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +29,10 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return NotFound();
             }
 
-            ContactInfo = await _context.ContactInfo.FirstOrDefaultAsync(m => m.ID == id);
+            Internship = await _context.Internship
+                .Include(i => i.Student).FirstOrDefaultAsync(m => m.ID == id);
 
-            if (ContactInfo == null)
+            if (Internship == null)
             {
                 return NotFound();
             }
@@ -45,16 +46,15 @@ namespace StudentDataApp.Pages.ContactInfoPage
                 return NotFound();
             }
 
-            ContactInfo = await _context.ContactInfo.FindAsync(id);
-            int studentId = ContactInfo.StudentID;
+            Internship = await _context.Internship.FindAsync(id);
 
-            if (ContactInfo != null)
+            if (Internship != null)
             {
-                _context.ContactInfo.Remove(ContactInfo);
+                _context.Internship.Remove(Internship);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Details", new { studentId });
+            return RedirectToPage("./Index");
         }
     }
 }

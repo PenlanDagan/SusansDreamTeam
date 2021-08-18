@@ -1,23 +1,42 @@
-﻿@page
+﻿@page "{id:int?}"
 @model StudentDataApp.Pages.ContactInfoPage.EditModel
 
 @{
     ViewData["Title"] = "Edit";
+    ViewData["StudentID"] = Model.ContactInfo.StudentID;
 }
 
 <h1>Edit</h1>
 
-<h4>ContactInfo</h4>
+<h4>Contact Info</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ContactInfo.ID" />
+            <input type="hidden" asp-for="ContactInfo.StudentID" />
             <div class="form-group">
-                <label asp-for="ContactInfo.StudentID" class="control-label"></label>
-                <input asp-for="ContactInfo.StudentID" class="form-control" />
-                <span asp-validation-for="ContactInfo.StudentID" class="text-danger"></span>
+                <label asp-for="ContactInfo.StreetAddress" class="control-label"></label>
+                <input asp-for="ContactInfo.StreetAddress" class="form-control" />
+                <span asp-validation-for="ContactInfo.StreetAddress" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label asp-for="ContactInfo.City" class="control-label"></label>
+                    <input asp-for="ContactInfo.City" class="form-control" />
+                    <span asp-validation-for="ContactInfo.City" class="text-danger"></span>
+                </div>
+                <div class="form-group col">
+                    <label asp-for="ContactInfo.State" class="control-label"></label>
+                    <select asp-for="ContactInfo.State" asp-items="Model.States" class="form-control" ></select>
+                    <span asp-validation-for="ContactInfo.State" class="text-danger"></span>
+                </div>
+                <div class="form-group col">
+                    <label asp-for="ContactInfo.Zip" class="control-label"></label>
+                    <input asp-for="ContactInfo.Zip" class="form-control" />
+                    <span asp-validation-for="ContactInfo.Zip" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="ContactInfo.PhoneNumber" class="control-label"></label>
@@ -34,10 +53,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {
