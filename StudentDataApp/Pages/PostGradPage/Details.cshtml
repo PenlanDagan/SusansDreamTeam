@@ -16,37 +16,60 @@
     {
         foreach (var item in Model.PostGrads)
         {
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => item.GradCode)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.GradCode)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => item.GradTerm)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.GradTerm)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => item.CompName)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.CompName)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => item.CompLocation)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.CompLocation)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(modelItem => item.Salary)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.Salary)
-                </dd>
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(modelItem => item.GradCode)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.GradCode)
+    </dd>
+    <dt class="col-sm-2">
+        Emphasis
+    </dt>
+    <dd class="col-sm-10">
+        @{ 
+            string empDisplay = "";
+            if (item.IsMainframe)
+            {
+                empDisplay += "Mainframe, ";
+            }
+            if (item.IsWebDev)
+            {
+                empDisplay += "Web Dev, ";
+            }
+            if (item.IsMobile)
+            {
+                empDisplay += "Mobile, ";
+            }
+
+            empDisplay = empDisplay.Substring(0, empDisplay.Length - 2);
+            <div>@empDisplay</div>
+        }
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(modelItem => item.GradTerm)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.GradTerm)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(modelItem => item.CompName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.CompName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(modelItem => item.CompLocation)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.CompLocation)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(modelItem => item.Salary)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.Salary)
+    </dd>
     <dt class="col-sm-2">
         <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
     </dt>
