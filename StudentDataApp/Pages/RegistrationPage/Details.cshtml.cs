@@ -23,16 +23,16 @@ namespace StudentDataApp.Pages.RegistrationPage
         public Student Student { get; set; }
         public List<Registration> Registrations { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? studentId)
         {
-            if (id == null)
+            if (studentId == null)
             {
                 return NotFound();
             }
 
-            StudentID = (int)id;
-            Registrations = await _context.Registration.Where(m => m.StudentID == id).ToListAsync();
-            Student = await _context.Student.FirstOrDefaultAsync(s => s.StudentID == id);
+            StudentID = (int)studentId;
+            Registrations = await _context.Registration.Where(m => m.StudentID == studentId).ToListAsync();
+            Student = await _context.Student.FirstOrDefaultAsync(s => s.StudentID == studentId);
 
             return Page();
         }

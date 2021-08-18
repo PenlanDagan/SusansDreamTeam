@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,22 +20,28 @@ namespace StudentDataApp.Pages.StudentPage
             _context = context;
         }
 
+        public int StudentID { get; set; }
         public Student Student { get; set; }
+        public ContactInfo ContactInfo { get; set; }
+        public List<ContactInfo> ContactInfos { get; set; }
+        public Post_Registration post_Registration { get; set; }
+        public Scholarship scholarship { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? studentId)
         {
-            if (id == null)
+            if (studentId == null)
             {
                 return NotFound();
             }
+            StudentID = (int)StudentID;
+            Student = await _context.Student.FirstOrDefaultAsync(m => m.StudentID == studentId);
+            ContactInfo = await _context.ContactInfo.Where(m => m.StudentID == studentId).FirstOrDefaultAsync();
+            post_Registration = await _context.Post_Registration.Where(m => m.StudentID == studentId).FirstOrDefaultAsync();
+            scholarship = await _context.Scholarship.Where(m => m.StudentID == studentId).FirstOrDefaultAsync();
 
-            Student = await _context.Student.FirstOrDefaultAsync(m => m.StudentID == id);
-
-            if (Student == null)
-            {
-                return NotFound();
-            }
             return Page();
         }
+
+
     }
 }

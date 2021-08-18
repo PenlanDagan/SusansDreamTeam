@@ -1,0 +1,58 @@
+﻿.container{
+    color:white;
+}
+.tc{
+    text-align:center;
+}
+.ac {
+    align-content: center;
+}
+.introHeader {
+    color: white;
+    text-align: center;
+    font-size: 150px;
+}
+.leftColumn {
+    color: white;
+    float: left;
+    padding-top:20px;
+    width: 40%
+
+}
+.leftColumnc {
+    color: white;
+    float: left;
+    padding-top: 20px;
+    width: 40%
+}
+.leftHead {
+    transform: rotate(-15deg);
+    text-align: right;
+    width: 10%;
+    padding-left: 10%;
+    padding-bottom: 15px;
+    text-shadow: 2px 3px grey
+}
+.rightColumn {
+    color: white;
+    float: right;
+    padding-top:20px;
+    width: 60%;
+}
+.rightColumnc {
+    color: white;
+    float: right;
+    padding-top: 20px;
+    width: 60%;
+}
+.rightHead {
+    color: white;
+    transform: rotate(-15deg);
+    text-align: center;
+    padding-bottom: 15px;
+    text-shadow: 2px 3px grey
+}
+
+.table{
+    color:white;
+}
