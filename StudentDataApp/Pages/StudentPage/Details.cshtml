@@ -1,37 +1,108 @@
-﻿@page
+﻿@page "{studentId:int?}"
 @model StudentDataApp.Pages.StudentPage.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
+    ViewData["StudentID"] = Model.StudentID;
+
 }
 
-<h1>Details</h1>
+<h1>@Model.Student.LastName, @Model.Student.FirstName | @Model.Student.StudentSchoolID</h1>
 
 <div>
-    <h4>Student</h4>
     <hr />
     <dl class="row">
+        <div id="leftColumn" class="leftColumn">
+
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Student.StudentSchoolID)
+            @Html.DisplayNameFor(model => model.ContactInfo.PhoneNumber)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Student.StudentSchoolID)
+            @Html.DisplayFor(model => model.ContactInfo.PhoneNumber)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ContactInfo.EmailAddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ContactInfo.EmailAddress)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ContactInfo.StreetAddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ContactInfo.StreetAddress)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Student.FirstName)
+            @Html.DisplayNameFor(model => model.ContactInfo.City), @Html.DisplayNameFor(model => model.ContactInfo.State)
+
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Student.FirstName)
+            @Html.DisplayFor(model => model.ContactInfo.City), @Html.DisplayFor(model => model.ContactInfo.State)
+
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Student.LastName)
+            @Html.DisplayNameFor(model => model.ContactInfo.Zip)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Student.LastName)
+            @Html.DisplayFor(model => model.ContactInfo.Zip)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.post_Registration.StartTerm)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.post_Registration.StartTerm)
+        </dd>
+    </dl>
+        </div>
+<div id="rightColumn" class="rightColumn">
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.scholarship.ScholarshipName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.scholarship.ScholarshipName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.scholarship.ScholarshipAmount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.scholarship.ScholarshipAmount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.scholarship.DateOffered)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.scholarship.DateOffered)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.scholarship.DateAwarded)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.scholarship.DateAwarded)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.scholarship.DateAccepted)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.scholarship.DateAccepted)
+        </dd>
+        <div>
+
+        </div>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Student.Notes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Student.Notes)
         </dd>
     </dl>
 </div>
+
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Student.StudentID">Edit</a> |
+    <a asp-page="./Edit" asp-route-id="@Model.Student.StudentID">Edit Notes</a> |
+
     <a asp-page="./Index">Back to List</a>
 </div>

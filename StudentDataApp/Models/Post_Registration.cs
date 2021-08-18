@@ -22,6 +22,7 @@ namespace StudentDataApp.Models
         public bool schedComp { get; set; }
 
         [DataType(DataType.Text)]
+        [Display(Name = "Starting Term")]
         public string StartTerm { get; set; }
 
 
@@ -29,5 +30,6 @@ namespace StudentDataApp.Models
         [Display(Name = "Emphasis")]
         [DataType(DataType.Text)]
         public String emphasis { get; set; }
+
     }
 }

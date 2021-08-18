@@ -30,5 +30,7 @@ namespace StudentDataApp.Models
         public string City { get; set; }
         
         public string Zip { get; set; }
+
+
     }
 }
