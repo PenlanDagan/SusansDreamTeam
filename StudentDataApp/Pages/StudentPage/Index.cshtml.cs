@@ -17,16 +17,35 @@ namespace StudentDataApp.Pages.StudentPage
     {
         private readonly StudentDataApp.Data.StudentDataAppContext _context;
 
+        public bool StudentIsExist = false;
+
         public IndexModel(StudentDataApp.Data.StudentDataAppContext context)
         {
             _context = context;
+            StudentIsExist = _context.Student.Any(s => s.StudentID == s.StudentID);
         }
 
         public IList<Student> Student { get; set; }
 
-        public async Task OnGetAsync()
+        public string InputFirstName { get; set; }
+        public string InputLastName { get; set; }
+
+        public async Task OnGetAsync(string firstName = null, string lastName = null)
         {
-            Student = await _context.Student.ToListAsync();
+            StudentIsExist = _context.Student.Any(s => s.StudentID == s.StudentID);
+
+            if (firstName == null && lastName == null)
+            {
+                return;
+            }
+
+            if (firstName != null) firstName = firstName.Trim();
+            if (lastName != null) lastName = lastName.Trim();
+
+            Student = await _context.Student.Where(s => (
+                (firstName == null || firstName.Length == 0 || s.FirstName.ToUpper().Contains(firstName.ToUpper())) &&
+                (lastName == null || lastName.Length == 0 || s.LastName.ToUpper().Contains(lastName.ToUpper()))
+            )).ToListAsync();
         }
 
         [BindProperty]
@@ -38,6 +57,8 @@ namespace StudentDataApp.Pages.StudentPage
             {
                 await ProcessRawData();
             }
+
+            StudentIsExist = _context.Student.Any(s => s.StudentID == s.StudentID);
         } 
 
         public string UploadErrorMessage { get; set; }
@@ -73,7 +94,7 @@ namespace StudentDataApp.Pages.StudentPage
                                 }
                             }
 
-                            // 0: Student ID, 1: Last Name, 2: First Name,
+                            // 0: Student ID, 1: Last Name, 2: First Name, 5: Start Term
                             // 6: Email, 7: Phone Number, 8: Address, 9: City, 10: State, 11: Zip
                             newStudent = new Student
                             {
@@ -81,8 +102,20 @@ namespace StudentDataApp.Pages.StudentPage
                                 LastName = values[1].Trim(),
                                 FirstName = values[2].Trim()
                             };
+
                             _context.Student.Add(newStudent);
-                            await _context.SaveChangesAsync();
+                            _context.SaveChanges();
+
+                            Post_Registration postReg = new()
+                            {
+                                emphasis = "",
+                                schedComp = false,
+                                StudentID = newStudent.StudentID,
+                                StartTerm = values[5].Trim()
+                            };
+
+                            _context.Post_Registration.Add(postReg);
+                            _context.SaveChanges();
                         }
 
                         // Adding Contact Info
@@ -102,7 +135,7 @@ namespace StudentDataApp.Pages.StudentPage
                                 state.Length != 0 ||
                                 zip.Length != 0)
                             {
-                                ContactInfo newContactInfo = new ContactInfo
+                                ContactInfo newContactInfo = new()
                                 {
                                     StudentID = newStudent.StudentID,
                                     EmailAddress = email.Length != 0 ? email : null,
@@ -124,8 +157,6 @@ namespace StudentDataApp.Pages.StudentPage
                     }
 
                     await _context.SaveChangesAsync();
-                    //Repopulate Student data
-                    Student = await _context.Student.ToListAsync();
                 };
             } catch (Exception e)
             {
