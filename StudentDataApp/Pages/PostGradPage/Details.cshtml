@@ -41,10 +41,13 @@
             {
                 empDisplay += "Mobile, ";
             }
-
-            empDisplay = empDisplay.Substring(0, empDisplay.Length - 2);
+            if (empDisplay.Length != 0)
+            {
+                empDisplay = empDisplay.Substring(0, empDisplay.Length - 2);
+            }
             <div>@empDisplay</div>
-        }
+                
+            }
     </dd>
     <dt class="col-sm-2">
         @Html.DisplayNameFor(modelItem => item.GradTerm)
