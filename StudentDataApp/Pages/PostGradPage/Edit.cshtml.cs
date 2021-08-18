@@ -24,6 +24,7 @@ namespace StudentDataApp.Pages.PostGradPage
         public PostGrad PostGrad { get; set; }
         public Student Student { get; set; }
         public readonly List<SelectListItem> GradCodes = PostGradCodeSelectList.getItems();
+        public readonly List<SelectListItem> EmpList = PostGradEmpList.getItems();
 
 
         public async Task<IActionResult> OnGetAsync(int? id)

@@ -36,6 +36,7 @@ namespace StudentDataApp.Pages.PostGradPage
         [BindProperty]
         public PostGrad PostGrad { get; set; }
         public readonly List<SelectListItem> GradCodes = PostGradCodeSelectList.getItems();
+        public readonly List<SelectListItem> EmpList = PostGradEmpList.getItems();
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()

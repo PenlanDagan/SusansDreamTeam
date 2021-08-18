@@ -23,17 +23,20 @@ namespace StudentDataApp.Pages.InternshipPage
 
         public string InputIntCompName { get; set; }
         public string InputIntStuFName { get; set; }
+        public string InputIntStuLName { get; set; }
         public string IntAvgWage { get; set; }
 
-        public async Task OnGetAsync(string compIntName = null, string stuIntFName = null)
+        public async Task OnGetAsync(string compIntName = null, string stuIntFName = null, string stuIntLName = null)
         {
             InputIntCompName = compIntName;
             InputIntStuFName = stuIntFName;
+            InputIntStuLName = stuIntLName;
 
 
             Internship = await _context.Internship.Where(e => (
                         (compIntName == null || e.IntCompName.ToUpper().Trim() == compIntName.ToUpper().Trim()) &&
-                        (stuIntFName == null || e.Student.FirstName.ToUpper().Trim() == stuIntFName.ToUpper().Trim())
+                        (stuIntFName == null || e.Student.FirstName.ToUpper().Trim() == stuIntFName.ToUpper().Trim()) &&
+                        (stuIntLName == null || e.Student.LastName.ToUpper().Trim() == stuIntLName.ToUpper().Trim())
                     )
                 ).Include(i => i.Student).ToListAsync();
 
@@ -44,7 +47,7 @@ namespace StudentDataApp.Pages.InternshipPage
 
             foreach (Internship i in Internship)
             {
-                if (i.IntWage != null)
+                if (i.IntWage != 0)
                 {
                     totalWage += (double)i.IntWage;
                 }
