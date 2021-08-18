@@ -17,6 +17,15 @@ namespace StudentDataApp.Models
         [Display(Name = "Graduation Code")]
         public string GradCode { get; set; }
 
+        [Display(Name = "Mainframe")]
+        public bool IsMainframe { get; set; }
+
+        [Display(Name = "Web Dev")]
+        public bool IsWebDev { get; set; }
+
+        [Display(Name = "Mobile")]
+        public bool IsMobile { get; set; }
+
         [Display(Name = "Company/Institution Name")]
         public string CompName { get; set; }
 
