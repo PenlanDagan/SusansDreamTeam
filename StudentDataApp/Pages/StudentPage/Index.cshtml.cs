@@ -157,6 +157,7 @@ namespace StudentDataApp.Pages.StudentPage
                     }
 
                     await _context.SaveChangesAsync();
+                    Student = null;
                 };
             } catch (Exception e)
             {
