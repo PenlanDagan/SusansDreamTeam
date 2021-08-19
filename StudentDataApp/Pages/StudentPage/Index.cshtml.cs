@@ -27,27 +27,37 @@ namespace StudentDataApp.Pages.StudentPage
 
         public IList<Student> Student { get; set; }
 
+        public string InputStartTerm { get; set; }
         public string InputFirstName { get; set; }
         public string InputLastName { get; set; }
 
-        public async Task OnGetAsync(string firstName = null, string lastName = null)
+        public async Task OnGetAsync(string submitButton, string startTerm, string firstName, string lastName)
         {
             StudentIsExist = _context.Student.Any(s => s.StudentID == s.StudentID);
 
-            if (firstName == null && lastName == null)
+            if (submitButton == "Filter")
             {
-                return;
+                // GOD IS DEAD THE SPIRIT IN THE MACHINE HAS DEEMED THIS UNACCEPATABLE REPENT
+                if (startTerm == null && firstName == null && lastName == null)
+                {
+                    return;
+                }
+                if (startTerm != null) startTerm = startTerm.Trim();
+                if (firstName != null) firstName = firstName.Trim();
+                if (lastName != null) lastName = lastName.Trim();
+
+                Student = await _context.Student.Where(s => (
+                    (startTerm == null || s.Post_Registrations.Any(p => p.StartTerm == startTerm.Trim())) &&
+                    (firstName == null || firstName.Length == 0 || s.FirstName.ToUpper().Contains(firstName.ToUpper())) &&
+                    (lastName == null || lastName.Length == 0 || s.LastName.ToUpper().Contains(lastName.ToUpper()))
+                )).Include(s => s.Post_Registrations).ToListAsync();
+
             }
-
-            if (firstName != null) firstName = firstName.Trim();
-            if (lastName != null) lastName = lastName.Trim();
-
-            Student = await _context.Student.Where(s => (
-                (firstName == null || firstName.Length == 0 || s.FirstName.ToUpper().Contains(firstName.ToUpper())) &&
-                (lastName == null || lastName.Length == 0 || s.LastName.ToUpper().Contains(lastName.ToUpper()))
-            )).ToListAsync();
+            else if(submitButton == "Get All")
+            {
+                Student = await _context.Student.ToListAsync();
+            }
         }
-
         [BindProperty]
         public IFormFile RawStudentData { get; set; }
 
@@ -114,8 +124,22 @@ namespace StudentDataApp.Pages.StudentPage
                                 StartTerm = values[5].Trim()
                             };
 
+
+                            Registration Reg = new()
+                            {
+                                StudentID = newStudent.StudentID,
+                                signCourse = false,
+                                priorClasses = false,
+                                transSet =  false,
+                                transEval = false,
+                                enrolled = false,
+                                termCreate = false
+                            };
+                            _context.Registration.Add(Reg);
                             _context.Post_Registration.Add(postReg);
                             _context.SaveChanges();
+
+
                         }
 
                         // Adding Contact Info

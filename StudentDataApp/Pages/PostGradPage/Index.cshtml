@@ -138,7 +138,10 @@
                             empDisplay += "Mobile, ";
                         }
 
-                        empDisplay = empDisplay.Substring(0, empDisplay.Length - 2);
+                        if (empDisplay.Length != 0)
+                        {
+                            empDisplay = empDisplay.Substring(0, empDisplay.Length - 2);
+                        }                        
                         <div>@empDisplay</div>
                     }
                     
