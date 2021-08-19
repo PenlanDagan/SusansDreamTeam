@@ -25,7 +25,8 @@ namespace StudentDataApp.Pages.StudentPage
         public List<ContactInfo> ContactInfos { get; set; }
         public Post_Registration PostRegistration { get; set; }
         public Scholarship Scholarship { get; set; }
-
+        public List<Internship> Internships { get; set; }
+       
         public async Task<IActionResult> OnGetAsync(int? studentId)
         {
             if (studentId == null)
@@ -42,7 +43,7 @@ namespace StudentDataApp.Pages.StudentPage
             PostRegistration = await _context.Post_Registration.Where(m => m.StudentID == studentId).FirstOrDefaultAsync();
             
             Scholarship = await _context.Scholarship.Where(m => m.StudentID == studentId).FirstOrDefaultAsync();
-
+            Internships = await _context.Internship.Where(m => m.StudentID == studentId).ToListAsync(); 
             return Page();
         }
 
