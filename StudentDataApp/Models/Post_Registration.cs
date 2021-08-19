@@ -19,27 +19,19 @@ namespace StudentDataApp.Models
 
         [Required(ErrorMessage = "Missing schedule completion status")]
         [Display(Name = "Schedule Status")]
-        public bool schedComp { get; set; }
+        public bool schedComp { get; set; } = false;
 
-
-        [Required(ErrorMessage = "missing start date")]
-        [Display(Name = "Start Date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true, NullDisplayText = "Not Entered")]
-
-        public DateTime startDate { get; set; }
-
-
-        [Required(ErrorMessage = "require projected graduation date")]
-        [Display(Name = "Graduation Date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true, NullDisplayText = "Not Entered")]
-        public DateTime gradDate { get; set; }
+        [DataType(DataType.Text)]
+        [Display(Name = "Starting Term")]
+        [DisplayFormat( NullDisplayText = "Not Enrolled")]
+        public string StartTerm { get; set; }
 
 
         [Required(ErrorMessage = "require emphasis")]
         [Display(Name = "Emphasis")]
         [DataType(DataType.Text)]
+        [DisplayFormat(NullDisplayText = "undetermined")]
         public String emphasis { get; set; }
+
     }
 }

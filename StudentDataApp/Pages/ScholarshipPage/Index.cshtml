@@ -2,25 +2,70 @@
 @model StudentDataApp.Pages.ScholarshipPage.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Scholarship List";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<h1>Scholarship List</h1>
+<hr/>
+<h3>Criteria</h3>
+<form method="get">
+    <div class="d-flex justify-content-start align-items-center">
+        <div class="form-group mr-4">
+            <label for="startTerm">Start Term</label>
+            <input class="form-control" autocomplete="on" type="text" name="startTerm" value=@Model.InputStartTerm />
+        </div>
+        <div class="form-group mr-4">
+            <label for="awardStatus">Awarded</label>
+            <select name="awardStatus" asp-items="Model.AwardStatusList" class="form-control"></select>
+        </div>
+        <div class="form-group mr-4">
+            <label for="acceptStatus">Accepted</label>
+            <select name="acceptStatus" asp-items="Model.AcceptStatusList" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Filter" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+<hr/>
+@if (Model.Scholarship != null && Model.Scholarship.Count > 0)
+{
+<h3>Scholarship Report</h3>
+<dl class="row">
+    <dt class="col-sm-2">
+        Awards
+    </dt>
+    <dd class="col-sm-10">
+        @Model.Scholarship.Count
+    </dd>
+    <dt class="col-sm-2">
+        Total Awarded
+    </dt>
+    <dd class="col-sm-10">
+        $@Model.TotalAmountAwarded
+    </dd>
+    <dt class="col-sm-2">
+        Start Term
+    </dt>
+    <dd class="col-sm-10">
+        @Model.InputStartTerm
+    </dd>
+</dl>
+<hr/>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Scholarship[0].StudentID)
+                @Html.DisplayNameFor(model => model.Scholarship[0].Student.StudentSchoolID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Scholarship[0].Student.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Scholarship[0].Student.LastName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Scholarship[0].ScholarshipAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Scholarship[0].DateOffered)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Scholarship[0].DateAwarded)
@@ -32,16 +77,20 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Scholarship) {
+@foreach (var item in Model.Scholarship)
+{
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.StudentID)
+                @Html.DisplayFor(modelItem => item.Student.StudentSchoolID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ScholarshipAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOffered)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateAwarded)
@@ -50,11 +99,11 @@
                 @Html.DisplayFor(modelItem => item.DateAccepted)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                <a class="btn btn-primary" asp-page="../student/Details" asp-route-studentId="@item.StudentID" >Select</a>
             </td>
         </tr>
 }
     </tbody>
+    
 </table>
+}

@@ -16,29 +16,29 @@ namespace StudentDataApp.Models
         [Display(Name = "Student ID")]
     
         public int StudentID { get; set; }
-        
+
         [Required(ErrorMessage = "Required sign_course")]
         [Display(Name = "Signed for Courses")]
-        public bool signCourse { get; set; }
+        public bool signCourse { get; set; } = false;
 
         [Required(ErrorMessage = "Required Prior Classes")]
         [Display(Name = "Prior Classes")]
-        public bool priorClasses { get; set; }
-        
+        public bool priorClasses { get; set; } = false;
+
         [Required(ErrorMessage = "Required trans sent status")]
         [Display(Name = "Transcript Sent")]
-        public bool transSet { get; set; }
-        
+        public bool transSet { get; set; } = false;
+
         [Required(ErrorMessage = "Required trans eval status")]
         [Display(Name = "Transcipt Evaluated")]
-        public bool transEval { get; set; }
-        
+        public bool transEval { get; set; } = false;
+
         [Required(ErrorMessage = "Required enrollment status")]
         [Display(Name = "Enrolled")]
-        public bool enrolled { get; set; }
-        
+        public bool enrolled { get; set; } = false;
+
         [Required(ErrorMessage = "Required term creation status")]
         [Display(Name = "Term Status")]
-        public bool termCreate { get; set; }
+        public bool termCreate { get; set; } = false;
     }
 }

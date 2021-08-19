@@ -19,13 +19,22 @@ namespace StudentDataApp.Pages.ContactInfoPage
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public int StudentID { get; set; }
+
+        public IActionResult OnGet(int? studentId)
         {
+            if (studentId == null)
+            {
+                return NotFound();
+            }
+            StudentID = (int)studentId;
+
             return Page();
         }
 
         [BindProperty]
         public ContactInfo ContactInfo { get; set; }
+        public readonly List<SelectListItem> States = StateSelectList.getItems();
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -37,8 +46,7 @@ namespace StudentDataApp.Pages.ContactInfoPage
 
             _context.ContactInfo.Add(ContactInfo);
             await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { studentId = ContactInfo.StudentID });
         }
     }
 }

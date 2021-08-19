@@ -1,37 +1,157 @@
-﻿@page
+﻿@page "{studentId:int?}"
 @model StudentDataApp.Pages.StudentPage.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
+    ViewData["StudentID"] = Model.StudentID;
+
 }
 
-<h1>Details</h1>
+<h1>@Model.Student.LastName, @Model.Student.FirstName | @Model.Student.StudentSchoolID</h1>
 
 <div>
-    <h4>Student</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Student.StudentSchoolID)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Student.StudentSchoolID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Student.FirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Student.FirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Student.LastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Student.LastName)
-        </dd>
-    </dl>
-</div>
+
+
+    @if (Model.ContactInfos != null && Model.ContactInfos.Count != 0)
+    {
+        <h2>Contact Info</h2>
+        <dl class="row">
+            @foreach (var item in Model.ContactInfos)
+            {
+                @if (item.StreetAddress != null)
+                {
+                    <dt class="col-sm-2">
+                        Home Address
+                    </dt>
+                    <dd class="col-sm-10">
+                        @($"{item.StreetAddress}, {item.City}, {item.State}, {item.Zip}")
+                    </dd>
+                }
+                @if (item.PhoneNumber != null)
+                {
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(modelItem => item.PhoneNumber)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </dd>
+                }
+                @if (item.EmailAddress != null)
+                {
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(modelItem => item.EmailAddress)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(modelItem => item.EmailAddress)
+                    </dd>
+
+                }
+
+            }
+        </dl>
+    }
+
+    @if (Model.PostRegistration != null)
+    {
+        <h2>Post Registration</h2>
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PostRegistration.StartTerm)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PostRegistration.StartTerm)
+            </dd>
+        </dl>
+    }
+
+    @if (Model.Scholarship != null)
+    {
+        <h2>Scholarship</h2>
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Scholarship.ScholarshipName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Scholarship.ScholarshipName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Scholarship.ScholarshipAmount)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Scholarship.ScholarshipAmount)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Scholarship.DateOffered)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Scholarship.DateOffered)
+            </dd>
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Scholarship.DateAwarded)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Scholarship.DateAwarded)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Scholarship.DateAccepted)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Scholarship.DateAccepted)
+            </dd>
+        </dl>
+    }
+
+    @if (Model.Internships != null)
+    {
+        <h2>Internship</h2>
+
+        foreach (var item in Model.Internships)
+        {
+            <dl class="row">
+
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.IntCompName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.IntCompName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.IntCompLocation)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.IntCompLocation)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.IntWage)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.IntWage)
+                </dd>
+                </dl>
+        }
+      }
+
+
+
+                @if (Model.Student.Notes != null && Model.Student.Notes.Trim().Length != 0)
+                {
+                    <h2>Notes</h2>
+
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Student.Notes)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Student.Notes)
+                        </dd>
+                    </dl>
+                }
+        </div>
+
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Student.StudentID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Edit" asp-route-id="@Model.Student.StudentID">Edit Notes</a> 
 </div>

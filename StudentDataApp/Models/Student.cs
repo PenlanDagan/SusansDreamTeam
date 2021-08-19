@@ -11,7 +11,7 @@ namespace StudentDataApp.Models
         // This is the database generated ID for primary key. It is not the Student School ID.
         [Key]
         public int StudentID { get; set; }
-    
+
         [Required(ErrorMessage = "Student School ID is required.")]
         [Display(Name = "Student School ID")]
         public int StudentSchoolID { get; set; }
@@ -25,6 +25,9 @@ namespace StudentDataApp.Models
         [Display(Name = "Last Name")]
         [DataType(DataType.Text)]
         public string LastName { get; set; }
+
+        [MaxLength(300, ErrorMessage = "Maximum number of characters that can be entered is 300")]
+        public string Notes { get; set; }
 
         public ICollection<ContactInfo> ContactInfos { get; set; }
         public ICollection<Scholarship> Scholarships { get; set; }

@@ -17,98 +17,176 @@ namespace StudentDataApp.Pages.StudentPage
     {
         private readonly StudentDataApp.Data.StudentDataAppContext _context;
 
+        public bool StudentIsExist = false;
+
         public IndexModel(StudentDataApp.Data.StudentDataAppContext context)
         {
             _context = context;
+            StudentIsExist = _context.Student.Any(s => s.StudentID == s.StudentID);
         }
 
         public IList<Student> Student { get; set; }
 
-        public async Task OnGetAsync()
-        {
-            Student = await _context.Student.ToListAsync();
-        }
+        public string InputStartTerm { get; set; }
+        public string InputFirstName { get; set; }
+        public string InputLastName { get; set; }
 
-        [BindProperty]
-        public IFormFile UnorganizedStudentData { get; set; }
-
-        public async Task OnPostAsync(int? id)
+        public async Task OnGetAsync(string submitButton, string startTerm, string firstName, string lastName)
         {
-            if (id == null)
+            StudentIsExist = _context.Student.Any(s => s.StudentID == s.StudentID);
+
+            if (submitButton == "Filter")
             {
-                if (UnorganizedStudentData != null)
+                // GOD IS DEAD THE SPIRIT IN THE MACHINE HAS DEEMED THIS UNACCEPATABLE REPENT
+                if (startTerm == null && firstName == null && lastName == null)
                 {
-                    await ProcessUnorganizedData();
+                    return;
                 }
+                if (startTerm != null) startTerm = startTerm.Trim();
+                if (firstName != null) firstName = firstName.Trim();
+                if (lastName != null) lastName = lastName.Trim();
+
+                Student = await _context.Student.Where(s => (
+                    (startTerm == null || s.Post_Registrations.Any(p => p.StartTerm == startTerm.Trim())) &&
+                    (firstName == null || firstName.Length == 0 || s.FirstName.ToUpper().Contains(firstName.ToUpper())) &&
+                    (lastName == null || lastName.Length == 0 || s.LastName.ToUpper().Contains(lastName.ToUpper()))
+                )).Include(s => s.Post_Registrations).ToListAsync();
+
             }
-            else
+            else if(submitButton == "Get All")
             {
-                Response.Redirect("ContactInfoPage/Details/" + id.ToString(), true);
-                await OnGetAsync();
+                Student = await _context.Student.ToListAsync();
             }
+        }
+        [BindProperty]
+        public IFormFile RawStudentData { get; set; }
+
+        public async Task OnPostAsync()
+        {
+            if (RawStudentData != null)
+            {
+                await ProcessRawData();
+            }
+
+            StudentIsExist = _context.Student.Any(s => s.StudentID == s.StudentID);
         } 
 
-        public async Task ProcessUnorganizedData()
+        public string UploadErrorMessage { get; set; }
+        public async Task ProcessRawData()
         {
-            using (StreamReader reader = new(UnorganizedStudentData.OpenReadStream()))
+            //Getting old student list for comparision
+            Student = await _context.Student.ToListAsync();
+            try
             {
-                List<ContactInfo> contactInfos = new();
-                
-                // Skip the first title line
-                await reader.ReadLineAsync();
-
-                Student newStudent = null;
-
-                // Start reading the data lines
-                while (!reader.EndOfStream)
+                using (StreamReader reader = new(RawStudentData.OpenReadStream()))
                 {
-                    string line = await reader.ReadLineAsync();
-                    string[] values = Regex.Split(line, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                    // Skip the first title line
+                    await reader.ReadLineAsync();
+                    Student newStudent = null;
 
-                    //Adding Student
-                    if (values[0].Trim().Length != 0)
+                    // Start reading the data lines
+                    while (!reader.EndOfStream)
                     {
-                        // 0: Student ID
-                        // 1: Last Name
-                        // 2: First Name
-                        // 6: Email
-                        // 7: Phone Number
-                        newStudent = new Student { 
-                            StudentSchoolID = int.Parse(values[0].Trim()), 
-                            LastName = values[1].Trim(), 
-                            FirstName = values[2].Trim() 
-                        };
-                        _context.Student.Add(newStudent);
-                        await _context.SaveChangesAsync();
-                    }
+                        string line = await reader.ReadLineAsync();
+                        string[] values = Regex.Split(line, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
-                    // Adding Contact Info
-                    if (newStudent != null)
-                    {
-                        string email = values[6].Trim();
-                        string phoneNumber = values[7].Trim();
-                        if (email.Length != 0 || phoneNumber.Length != 0)
+                        //Adding Student
+                        if (values[0].Trim().Length != 0)
                         {
-                            ContactInfo newContactInfo = new ContactInfo
+                            //Check if student is already in the database.
+                            //If student is in the database, then skip that student.
+                            if (Student.Count > 0)
+                            {
+                                int StudentSchoolID = int.Parse(values[0].Trim());
+                                if (Student.FirstOrDefault(s => s.StudentSchoolID == StudentSchoolID) != null)
+                                {
+                                    continue;
+                                }
+                            }
+
+                            // 0: Student ID, 1: Last Name, 2: First Name, 5: Start Term
+                            // 6: Email, 7: Phone Number, 8: Address, 9: City, 10: State, 11: Zip
+                            newStudent = new Student
+                            {
+                                StudentSchoolID = int.Parse(values[0].Trim()),
+                                LastName = values[1].Trim(),
+                                FirstName = values[2].Trim()
+                            };
+
+                            _context.Student.Add(newStudent);
+                            _context.SaveChanges();
+
+                            Post_Registration postReg = new()
+                            {
+                                emphasis = "",
+                                schedComp = false,
+                                StudentID = newStudent.StudentID,
+                                StartTerm = values[5].Trim()
+                            };
+
+
+                            Registration Reg = new()
                             {
                                 StudentID = newStudent.StudentID,
-                                EmailAddress = email.Length != 0 ? email : null,
-                                PhoneNumber = phoneNumber.Trim().Length != 0 ? phoneNumber : null
+                                signCourse = false,
+                                priorClasses = false,
+                                transSet =  false,
+                                transEval = false,
+                                enrolled = false,
+                                termCreate = false
                             };
-                            _context.ContactInfo.Add(newContactInfo);
+                            _context.Registration.Add(Reg);
+                            _context.Post_Registration.Add(postReg);
+                            _context.SaveChanges();
+
+
                         }
-                        else if (values[0].Trim().Length == 0)
+
+                        // Adding Contact Info
+                        if (newStudent != null)
                         {
-                            // If there's no Student ID, no email, no phone number,
-                            // assume that the file ended and exit.
-                            break;
+                            string email = values[6].Trim();
+                            string phoneNumber = values[7].Trim();
+                            string address = values[8].Trim();
+                            string city = values[9].Trim();
+                            string state = values[10].Trim();
+                            string zip = values[11].Trim();
+
+                            if (email.Length != 0 ||
+                                phoneNumber.Length != 0 ||
+                                address.Length != 0 ||
+                                city.Length != 0 ||
+                                state.Length != 0 ||
+                                zip.Length != 0)
+                            {
+                                ContactInfo newContactInfo = new()
+                                {
+                                    StudentID = newStudent.StudentID,
+                                    EmailAddress = email.Length != 0 ? email : null,
+                                    PhoneNumber = phoneNumber.Length != 0 ? phoneNumber : null,
+                                    StreetAddress = address.Length != 0 ? address : null,
+                                    City = city.Length != 0 ? city : null,
+                                    State = state.Length != 0 ? state : null,
+                                    Zip = zip.Length != 0 ? zip : null
+                                };
+                                _context.ContactInfo.Add(newContactInfo);
+                            }
+                            else if (values[0].Trim().Length == 0)
+                            {
+                                // If there's no Student ID, no Contact Infos,
+                                // assume that the file ended and exit.
+                                break;
+                            }
                         }
                     }
-                }
 
-                await _context.SaveChangesAsync();
-                await OnGetAsync();
-            };
+                    await _context.SaveChangesAsync();
+                    Student = null;
+                };
+            } catch (Exception e)
+            {
+                UploadErrorMessage = "Something went wrong while uploading. System error: " + e.ToString();
+            }
         }
         
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,22 +20,33 @@ namespace StudentDataApp.Pages.StudentPage
             _context = context;
         }
 
+        public int StudentID { get; set; }
         public Student Student { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public List<ContactInfo> ContactInfos { get; set; }
+        public Post_Registration PostRegistration { get; set; }
+        public Scholarship Scholarship { get; set; }
+        public List<Internship> Internships { get; set; }
+       
+        public async Task<IActionResult> OnGetAsync(int? studentId)
         {
-            if (id == null)
+            if (studentId == null)
             {
                 return NotFound();
             }
+            StudentID = (int)studentId;
 
-            Student = await _context.Student.FirstOrDefaultAsync(m => m.StudentID == id);
-
-            if (Student == null)
-            {
-                return NotFound();
-            }
+            Console.WriteLine("This is student id: "+ StudentID);
+            Student = await _context.Student.FirstOrDefaultAsync(m => m.StudentID == studentId);
+            
+            ContactInfos = await _context.ContactInfo.Where(m => m.StudentID == studentId).ToListAsync();
+            
+            PostRegistration = await _context.Post_Registration.Where(m => m.StudentID == studentId).FirstOrDefaultAsync();
+            
+            Scholarship = await _context.Scholarship.Where(m => m.StudentID == studentId).FirstOrDefaultAsync();
+            Internships = await _context.Internship.Where(m => m.StudentID == studentId).ToListAsync(); 
             return Page();
         }
+
+
     }
 }
